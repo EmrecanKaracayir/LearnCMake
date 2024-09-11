@@ -1,0 +1,11 @@
+# Visual Studio folder
+.vs/
+
+# Visual Studio Code folder
+.vscode/
+
+# Idea folder
+.idea/
+
+# CMake build directories
+**/build/
