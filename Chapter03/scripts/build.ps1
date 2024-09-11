@@ -297,7 +297,7 @@ function script:Summary
 {
   # Print section information
   script:Print 0 "TITLE" "SUMMARY"
-  script:Print 0 "DEFAULT" "Displays the summary of the process."
+  script:Print 0 "DEFAULT" "Displays the summary of the script's execution."
 
   # Calculate the script execution time
   $local:END_TIME = Get-Date
@@ -307,7 +307,7 @@ function script:Summary
   $local:EXECUTION_TIME_STR = $local:EXECUTION_TIME.TotalSeconds.ToString("F2")
 
   # Print the summary
-  script:Print 0 "MESSAGE" "Build summary:"
+  script:Print 0 "MESSAGE" "Execution summary:"
   script:Print 1 "DIMMED" ("Start time     = " + ($script:START_TIME.ToString("HH:mm:ss")))
   script:Print 1 "DIMMED" ("End time       = " + ($local:END_TIME.ToString("HH:mm:ss")))
   script:Print 1 "DIMMED" "Execution time = $local:EXECUTION_TIME_STR seconds"
@@ -321,7 +321,7 @@ script:Build
 script:Summary
 
 # Print the completion message
-script:Print 0 "SUCCESS" "Process completed successfully."
+script:Print 0 "SUCCESS" "Script execution completed."
 script:Print 0 "EMPTY"
 
 # Exit the script

@@ -253,14 +253,14 @@ end
 function summary
     # Print section information
     print 0 TITLE SUMMARY
-    print 0 DEFAULT "Displays the summary of the build process."
+    print 0 DEFAULT "Displays the summary of the script's execution."
 
     # Calculate the script execution time
     set END_TIME (date +%s)
     set ELAPSED_TIME (printf "%.2f" (math $END_TIME - $START_TIME))
 
     # Print the summary
-    print 0 MESSAGE "Build summary:"
+    print 0 MESSAGE "Execution summary:"
     print 1 DIMMED "Start Time   = $(date -r $START_TIME +%H:%M:%S)"
     print 1 DIMMED "End Time     = $(date -r $END_TIME +%H:%M:%S)"
     print 1 DIMMED "Elapsed Time = $ELAPSED_TIME seconds."
@@ -274,7 +274,7 @@ build
 summary
 
 # Print the completion message
-print 0 SUCCESS "Process completed successfully."
+print 0 SUCCESS "Script execution completed."
 print 0 EMPTY
 
 # Exit the script
