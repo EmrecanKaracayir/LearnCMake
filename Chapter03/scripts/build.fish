@@ -1,8 +1,14 @@
 #!/usr/bin/env fish
 
-# Get paths
-set PROJECT_PATH (dirname (realpath (status dirname)))
-set PROJECT_NAME (basename $PROJECT_PATH)
+# Script constants
+set START_TIME (date +%s)
+#
+set SCRIPT_DIR (dirname (realpath (status --current-filename)))
+set SCRIPT_NAME (basename (realpath (status --current-filename)))
+set SCRIPT_VERSION 1.0.0
+#
+set PROJECT_DIR (dirname $SCRIPT_DIR)
+set PROJECT_NAME (basename $PROJECT_DIR)
 
 # Function to print predefined messages
 function print
@@ -67,23 +73,40 @@ function print_user_prompt
     set_color normal
 end
 
-# Main section
-begin
+# Script section
+function main
     # Print section information
-    print 0 TITLE "BUILD SCRIPT"
+    print 0 TITLE SCRIPT
     print 0 DEFAULT "Manages the build process of the project."
+
+    # Print project information
+    print 0 MESSAGE "Project details:"
+    print 1 DIMMED "Project name      = $PROJECT_NAME"
+    print 1 DIMMED "Project directory = $PROJECT_DIR"
+
+    # Print script information
+    print 0 MESSAGE "Script details:"
+    print 1 DIMMED "Script name       = $SCRIPT_NAME"
+    print 1 DIMMED "Script directory  = $SCRIPT_DIR"
+    print 1 DIMMED "Script version    = $SCRIPT_VERSION"
+
+    # Print shell information
+    print 0 MESSAGE "Shell details:"
+    print 1 DIMMED "Shell name        = Fish"
+    print 1 DIMMED "Shell directory   = $(dirname $SHELL)"
+    print 1 DIMMED "Shell version     = $FISH_VERSION"
 
     # Print platform information
     print 0 MESSAGE "Platform details:"
-    print 1 DIMMED "System Name      = $(uname -n)"
-    print 1 DIMMED "Operating System = $(uname -s)"
-    print 1 DIMMED "Kernel Version   = $(uname -r)"
-    print 1 DIMMED "Processor Family = $(uname -p)"
-    print 1 DIMMED "Architecture     = $(uname -m)"
+    print 1 DIMMED "System name       = $(uname -n)"
+    print 1 DIMMED "Operating system  = $(uname -s)"
+    print 1 DIMMED "Kernel version    = $(uname -r)"
+    print 1 DIMMED "Processor family  = $(uname -p)"
+    print 1 DIMMED "Architecture      = $(uname -m)"
 end
 
 # Verify Section
-begin
+function verify
     # Create a success flag
     set --local SUCCESS 1
 
@@ -141,7 +164,7 @@ begin
 end
 
 # Generate section
-begin
+function generate
     # Print section information
     print 0 TITLE GENERATE
     print 0 DEFAULT "Generates the build files for the project."
@@ -160,7 +183,7 @@ begin
 
     # Check the cache
     print 0 LOADING "Checking the cache..."
-    if test -e $PROJECT_PATH/build/CMakeCache.txt
+    if test -e $PROJECT_DIR/build/CMakeCache.txt
         print 0 WARNING "Cache found. Would you like to discard it? [Y/N]"
 
         # Prompt the user to discard the cache
@@ -170,7 +193,7 @@ begin
         if test $DISCARD_CACHE = y -o $DISCARD_CACHE = Y
             # Remove everything in the build directory
             print 0 LOADING "Cleaning up the cache..."
-            rm -rf $PROJECT_PATH/build*
+            rm -rf $PROJECT_DIR/build*
 
             # Inform the user that cache clean up is done
             print 0 MESSAGE "Cache cleaned up."
@@ -184,9 +207,9 @@ begin
     end
 
     # Create the build directory if it does not exist
-    if test -d $PROJECT_PATH/build
+    if test -d $PROJECT_DIR/build
         print 0 LOADING "Creating the build directory..."
-        mkdir -p $PROJECT_PATH/build
+        mkdir -p $PROJECT_DIR/build
 
         # Inform the user that the build directory is created
         print 0 MESSAGE "Build directory created."
@@ -194,8 +217,8 @@ begin
 
     # Generate the build system
     print 0 LOADING "Generating the build system..."
-    print_system_prompt "cmake -G \$GENERATOR_NAME -S \$PROJECT_PATH -B \$PROJECT_PATH/build"
-    cmake -G $GENERATOR_NAME -S $PROJECT_PATH -B $PROJECT_PATH/build
+    print_system_prompt "cmake -G $GENERATOR_NAME -S $PROJECT_DIR -B $PROJECT_DIR/build"
+    cmake -G $GENERATOR_NAME -S $PROJECT_DIR -B $PROJECT_DIR/build
 
     # Check if the build system generation was successful
     if test $status -eq 0
@@ -207,15 +230,15 @@ begin
 end
 
 # Build section
-begin
+function build
     # Print section information
     print 0 TITLE BUILD
     print 0 DEFAULT "Builds the project using the generated build system."
 
     # Build the project
     print 0 LOADING "Building the project..."
-    print_system_prompt "cmake --build \$PROJECT_PATH/build"
-    cmake --build $PROJECT_PATH/build
+    print_system_prompt "cmake --build $PROJECT_DIR/build"
+    cmake --build $PROJECT_DIR/build
 
     # Check if the build was successful
     if test $status -eq 0
@@ -225,3 +248,34 @@ begin
         exit 1
     end
 end
+
+# Summary section
+function summary
+    # Print section information
+    print 0 TITLE SUMMARY
+    print 0 DEFAULT "Displays the summary of the build process."
+
+    # Calculate the script execution time
+    set END_TIME (date +%s)
+    set ELAPSED_TIME (printf "%.2f" (math $END_TIME - $START_TIME))
+
+    # Print the summary
+    print 0 MESSAGE "Build summary:"
+    print 1 DIMMED "Start Time   = $(date -r $START_TIME +%H:%M:%S)"
+    print 1 DIMMED "End Time     = $(date -r $END_TIME +%H:%M:%S)"
+    print 1 DIMMED "Elapsed Time = $ELAPSED_TIME seconds."
+end
+
+# Script execution
+main
+verify
+generate
+build
+summary
+
+# Print the completion message
+print 0 SUCCESS "Process completed successfully."
+print 0 EMPTY
+
+# Exit the script
+exit 0
