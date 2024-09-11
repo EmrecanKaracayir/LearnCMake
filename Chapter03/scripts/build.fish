@@ -1,11 +1,10 @@
 #!/usr/bin/env fish
 
-# Get the directory of the script
-set SCRIPT_PATH (realpath (status dirname))
-set PROJECT_PATH (dirname $SCRIPT_PATH)
+# Get paths
+set PROJECT_PATH (dirname (realpath (status dirname)))
 set PROJECT_NAME (basename $PROJECT_PATH)
 
-# Function to print the text in color
+# Function to print predefined messages
 function print
     # Print tabs
     if test $argv[1] -gt 0
@@ -14,7 +13,7 @@ function print
         end
     end
 
-    # Check the type of message
+    # Print message
     switch $argv[2]
         case DEFAULT
             set_color normal
@@ -22,13 +21,13 @@ function print
         case DIMMED
             set_color brblack
             echo "[-] $argv[3]"
+        case EMPTY
+            echo ""
         case TITLE
             echo ""
             set_color --bold brwhite
             echo "$argv[3]"
             echo "$(string repeat --count $(string length $argv[3]) -)"
-        case EMPTY
-            echo ""
         case FAILURE
             set_color red
             echo "[x] $argv[3]"
@@ -50,27 +49,29 @@ function print
     set_color normal
 end
 
-# Function to print the read prompt
-function prompt
+# Function to print system prompts
+function print_system_prompt
     # Print prompt
-    set_color brgreen
+    set_color magenta
+    echo -n "[>] "
+    set_color brmagenta
+    echo $argv[1]
+    set_color normal
+end
+
+# Function to print the user prompt
+function print_user_prompt
+    # Print prompt
+    set_color magenta
     echo -n "[>] "
     set_color normal
 end
 
-# Function to print the system prompt
-function print_system_prompt
-    # Print prompt
-    set_color magenta
-    echo "[>] $argv[1]"
-    set_color normal
-end
-
-# Welcome section
+# Main section
 begin
     # Print section information
     print 0 TITLE "BUILD SCRIPT"
-    print 0 DEFAULT "Manages the build process of $PROJECT_NAME."
+    print 0 DEFAULT "Manages the build process of the project."
 
     # Print platform information
     print 0 MESSAGE "Platform details:"
@@ -95,13 +96,13 @@ begin
     if type --query cmake
         print 0 MESSAGE "CMake is installed. Details:"
 
-        # Print CMake installation details
+        # Print CMake details
         print 1 DIMMED "Path    = $(which cmake)"
         print 1 DIMMED "Version = $(cmake --version | head -n 1 | cut -d ' ' -f 3)"
     else
         print 0 WARNING "CMake is not installed. To install it:"
 
-        # Provide installation instructions for CMake
+        # Provide instructions for installing CMake
         print 1 DIMMED "Windows > winget install --id=Kitware.CMake --exact"
         print 1 DIMMED "macOS   > brew install cmake"
         print 1 DIMMED "Linux   > Use your distribution's package manager."
@@ -115,13 +116,13 @@ begin
     if type --query ninja
         print 0 MESSAGE "Ninja is installed. Details:"
 
-        # Print Ninja installation details
+        # Print Ninja details
         print 1 DIMMED "Path    = $(which ninja)"
-        print 1 DIMMED "Version = $(ninja --version | head -n 1 | cut -d ' ' -f 1)"
+        print 1 DIMMED "Version = $(ninja --version)"
     else
         print 0 WARNING "Ninja is not installed. To install it:"
 
-        # Provide installation instructions for Ninja
+        # Provide instructions for installing Ninja
         print 1 DIMMED "Windows > winget install --id=Ninja-build.Ninja --exact"
         print 1 DIMMED "macOS   > brew install ninja"
         print 1 DIMMED "Linux   > Use your distribution's package manager."
@@ -130,12 +131,12 @@ begin
         set SUCCESS 0
     end
 
-    # Check for failure
-    if test $SUCCESS -eq 0
+    # Verify the success flag
+    if test $SUCCESS -eq 1
+        print 0 SUCCESS "All the necessary tools are installed."
+    else
         print 0 FAILURE "Necessary tools are missing. Install them and try again."
         exit 1
-    else
-        print 0 SUCCESS "All the necessary tools are installed."
     end
 end
 
@@ -143,47 +144,49 @@ end
 begin
     # Print section information
     print 0 TITLE GENERATE
-    print 0 DEFAULT "Generates the build system."
+    print 0 DEFAULT "Generates the build files for the project."
 
-    # Get generator and compiler information
-    set --local GENERATOR_ID Ninja
-    set --local COMPILER_ID (cmake --system-information | grep "CMAKE_CXX_COMPILER_ID " \
+    # Get generator and compiler names
+    set --local GENERATOR_NAME Ninja
+    set --local COMPILER_NAME (cmake --system-information | grep "CMAKE_CXX_COMPILER_ID " \
         | awk -F'"' '{print $2}')
 
     # Print configuration details
-    print 0 MESSAGE "CMake configuration details:"
+    print 0 MESSAGE "Configuration details:"
     print 1 DIMMED "Source Path = $PROJECT_NAME/source"
     print 1 DIMMED "Build Path  = $PROJECT_NAME/build"
-    print 1 DIMMED "Generator   = $GENERATOR_ID"
-    print 1 DIMMED "Compiler    = $COMPILER_ID"
+    print 1 DIMMED "Generator   = $GENERATOR_NAME"
+    print 1 DIMMED "Compiler    = $COMPILER_NAME"
 
     # Check the cache
     print 0 LOADING "Checking the cache..."
-    if test -d $SCRIPT_PATH/../build
-        # Check if the CMakeCache.txt file exists
-        if test -e $SCRIPT_PATH/../build/CMakeCache.txt
-            print 0 WARNING "Cache found. Would you like to discard it? [y/N]"
+    if test -e $PROJECT_PATH/build/CMakeCache.txt
+        print 0 WARNING "Cache found. Would you like to discard it? [Y/N]"
 
-            # Read the user input
-            read --local --prompt prompt DISCARD
+        # Prompt the user to discard the cache
+        read --local --prompt print_user_prompt DISCARD_CACHE
 
-            # Check if the user wants to rebuild
-            if test $DISCARD = y -o $DISCARD = Y
-                # Remove everything in the build directory
-                rm -rf $SCRIPT_PATH/../build*
+        # Check if the user wants to rebuild
+        if test $DISCARD_CACHE = y -o $DISCARD_CACHE = Y
+            # Remove everything in the build directory
+            print 0 LOADING "Cleaning up the cache..."
+            rm -rf $PROJECT_PATH/build*
 
-                # Inform the user that cache clean up is done
-                print 0 MESSAGE "Cache cleaned up."
-            else
-                # Inform the user that the cache is used
-                print 0 SUCCESS "Skipped build system generation."
-                return
-            end
+            # Inform the user that cache clean up is done
+            print 0 MESSAGE "Cache cleaned up."
+        else
+            # Inform the user that the cache is used
+            print 0 SUCCESS "Skipped build system generation."
+            return
         end
     else
-        # Create the build directory
+        print 0 MESSAGE "No cache found."
+    end
+
+    # Create the build directory if it does not exist
+    if test -d $PROJECT_PATH/build
         print 0 LOADING "Creating the build directory..."
-        mkdir -p $SCRIPT_PATH/../build
+        mkdir -p $PROJECT_PATH/build
 
         # Inform the user that the build directory is created
         print 0 MESSAGE "Build directory created."
@@ -191,15 +194,14 @@ begin
 
     # Generate the build system
     print 0 LOADING "Generating the build system..."
+    print_system_prompt "cmake -G \$GENERATOR_NAME -S \$PROJECT_PATH -B \$PROJECT_PATH/build"
+    cmake -G $GENERATOR_NAME -S $PROJECT_PATH -B $PROJECT_PATH/build
 
-    print_system_prompt "cmake -S \$PROJECT_PATH -B \$PROJECT_PATH/build -G Ninja"
-    cmake -S $PROJECT_PATH -B $PROJECT_PATH/build -G Ninja
-
-    # Check if the configuration was successful
+    # Check if the build system generation was successful
     if test $status -eq 0
         print 0 SUCCESS "Build system generated."
     else
-        print 0 FAILURE "Build system generation failed. Check the logs to learn more."
+        print 0 FAILURE "Build system generation failed. Check the logs for details."
         exit 1
     end
 end
@@ -208,11 +210,10 @@ end
 begin
     # Print section information
     print 0 TITLE BUILD
-    print 0 DEFAULT "Builds the $PROJECT_NAME."
+    print 0 DEFAULT "Builds the project using the generated build system."
 
     # Build the project
     print 0 LOADING "Building the project..."
-
     print_system_prompt "cmake --build \$PROJECT_PATH/build"
     cmake --build $PROJECT_PATH/build
 
@@ -220,7 +221,7 @@ begin
     if test $status -eq 0
         print 0 SUCCESS "Build successful."
     else
-        print 0 FAILURE "Build failed. Check the logs to learn more."
+        print 0 FAILURE "Build failed. Check the logs for details."
         exit 1
     end
 end
