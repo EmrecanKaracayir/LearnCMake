@@ -176,8 +176,8 @@ function generate
 
     # Print configuration details
     print 0 MESSAGE "Configuration details:"
-    print 1 DIMMED "Source Path = $PROJECT_NAME/source"
-    print 1 DIMMED "Build Path  = $PROJECT_NAME/build"
+    print 1 DIMMED "Source path = $PROJECT_NAME/source"
+    print 1 DIMMED "Build path  = $PROJECT_NAME/build"
     print 1 DIMMED "Generator   = $GENERATOR_NAME"
     print 1 DIMMED "Compiler    = $COMPILER_NAME"
 
@@ -261,9 +261,9 @@ function summary
 
     # Print the summary
     print 0 MESSAGE "Execution summary:"
-    print 1 DIMMED "Start Time   = $(date -r $START_TIME +%H:%M:%S)"
-    print 1 DIMMED "End Time     = $(date -r $END_TIME +%H:%M:%S)"
-    print 1 DIMMED "Elapsed Time = $ELAPSED_TIME seconds."
+    print 1 DIMMED "Start time   = $(date -r $START_TIME +%H:%M:%S)"
+    print 1 DIMMED "End time     = $(date -r $END_TIME +%H:%M:%S)"
+    print 1 DIMMED "Elapsed time = $ELAPSED_TIME seconds."
 end
 
 # Script execution

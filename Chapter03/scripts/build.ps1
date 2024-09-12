@@ -204,8 +204,8 @@ function script:Generate
 
   # Print configuration details
   script:Print 0 "MESSAGE" "Configuration details:"
-  script:Print 1 "DIMMED" "Source Path = $script:PROJECT_NAME\source"
-  script:Print 1 "DIMMED" "Build Path  = $script:PROJECT_NAME\build"
+  script:Print 1 "DIMMED" "Source path = $script:PROJECT_NAME\source"
+  script:Print 1 "DIMMED" "Build path  = $script:PROJECT_NAME\build"
   script:Print 1 "DIMMED" "Generator   = $local:GENERATOR_NAME"
   script:Print 1 "DIMMED" "Compiler    = $local:COMPILER_NAME"
 
