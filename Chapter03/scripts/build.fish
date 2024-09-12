@@ -29,11 +29,29 @@ function print
             echo "[-] $argv[3]"
         case EMPTY
             echo ""
+        case HEADER
+            set --local TITLE "| $(string upper $argv[3]) |"
+            set --local DIVIDER "*$(string repeat --count (math (string length $TITLE) - 2) -)*"
+            echo ""
+            set_color --bold brgreen
+            echo $DIVIDER
+            echo $TITLE
+            echo $DIVIDER
         case TITLE
+            set --local TITLE (string upper $argv[3])
+            set --local DIVIDER (string repeat --count (string length $TITLE) -)
             echo ""
             set_color --bold brwhite
-            echo "$argv[3]"
-            echo "$(string repeat --count $(string length $argv[3]) -)"
+            echo $TITLE
+            echo $DIVIDER
+        case FOOTER
+            set --local TITLE "| $(string upper $argv[3]) |"
+            set --local DIVIDER "*$(string repeat --count (math (string length $TITLE) - 2) -)*"
+            echo ""
+            set_color --bold brred
+            echo $DIVIDER
+            echo $TITLE
+            echo $DIVIDER
         case FAILURE
             set_color red
             echo "[x] $argv[3]"
@@ -76,7 +94,7 @@ end
 # Script section
 function main
     # Print section information
-    print 0 TITLE SCRIPT
+    print 0 HEADER "BUILD SCRIPT"
     print 0 DEFAULT "Manages the build process of the project."
 
     # Print project information
@@ -217,8 +235,8 @@ function generate
 
     # Generate the build system
     print 0 LOADING "Generating the build system..."
-    print_system_prompt "cmake -G $GENERATOR_NAME -S $PROJECT_DIR -B $PROJECT_DIR/build"
-    cmake -G $GENERATOR_NAME -S $PROJECT_DIR -B $PROJECT_DIR/build
+    print_system_prompt "cmake -G \"$GENERATOR_NAME\" -S $PROJECT_DIR -B $PROJECT_DIR/build"
+    cmake -G "$GENERATOR_NAME" -S $PROJECT_DIR -B $PROJECT_DIR/build
 
     # Check if the build system generation was successful
     if test $status -eq 0
@@ -252,7 +270,7 @@ end
 # Summary section
 function summary
     # Print section information
-    print 0 TITLE SUMMARY
+    print 0 FOOTER "SCRIPT SUMMARY"
     print 0 DEFAULT "Displays the summary of the script's execution."
 
     # Calculate the script execution time

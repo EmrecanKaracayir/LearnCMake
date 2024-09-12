@@ -36,11 +36,31 @@ function script:Print
     {
       Write-Host ""
     }
+    "HEADER"
+    {
+      $local:TITLE = "| " + ($local:MESSAGE.ToUpper()) + " |"
+      $local:DIVIDER = "*" + ("-" * ($local:TITLE.Length)) + "*"
+      Write-Host ""
+      Write-Host -ForegroundColor Green $local:DIVIDER
+      Write-Host -ForegroundColor Green $local:TITLE
+      Write-Host -ForegroundColor Green $local:DIVIDER
+    }
     "TITLE"
     {
+      $local:TITLE = $local:MESSAGE.ToUpper()
+      $local:DIVIDER = "-" * ($local:TITLE.Length)
       Write-Host ""
-      Write-Host -ForegroundColor White "$local:MESSAGE"
-      Write-Host -ForegroundColor White ("-" * ($local:MESSAGE.Length))
+      Write-Host -ForegroundColor White $local:TITLE
+      Write-Host -ForegroundColor White $local:DIVIDER
+    }
+    "FOOTER"
+    {
+      $local:TITLE = "| " + ($local:MESSAGE.ToUpper()) + " |"
+      $local:DIVIDER = "*" + ("-" * ($local:TITLE.Length)) + "*"
+      Write-Host ""
+      Write-Host -ForegroundColor Red $local:DIVIDER
+      Write-Host -ForegroundColor Red $local:TITLE
+      Write-Host -ForegroundColor Red $local:DIVIDER
     }
     "FAILURE"
     {
@@ -86,7 +106,7 @@ function script:PrintUserPrompt
 function script:Main
 {
   # Print section information
-  script:Print 0 "TITLE" "SCRIPT"
+  script:Print 0 "HEADER" "BUILD SCRIPT"
   script:Print 0 "DEFAULT" "Manages the build process of the project."
 
   # Print project information
@@ -253,8 +273,8 @@ function script:Generate
 
   # Generate the build system
   script:Print 0 "LOADING" "Generating the build system..."
-  script:PrintSystemPrompt "cmake -G $local:GENERATOR_NAME -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build"
-  cmake -G $local:GENERATOR_NAME -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build
+  script:PrintSystemPrompt "cmake -G `"$local:GENERATOR_NAME`" -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build"
+  cmake -G "$local:GENERATOR_NAME" -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build
 
   # Check if the build system generation was successful
   if ($LASTEXITCODE -eq 0)
@@ -296,7 +316,7 @@ function script:Build
 function script:Summary
 {
   # Print section information
-  script:Print 0 "TITLE" "SUMMARY"
+  script:Print 0 "FOOTER" "SCRIPT SUMMARY"
   script:Print 0 "DEFAULT" "Displays the summary of the script's execution."
 
   # Calculate the script execution time
