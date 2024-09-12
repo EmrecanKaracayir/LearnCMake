@@ -39,7 +39,7 @@ function script:Print
     "HEADER"
     {
       $local:TITLE = "| " + ($local:MESSAGE.ToUpper()) + " |"
-      $local:DIVIDER = "*" + ("-" * ($local:TITLE.Length)) + "*"
+      $local:DIVIDER = "*" + ("-" * ($local:TITLE.Length - 2)) + "*"
       Write-Host ""
       Write-Host -ForegroundColor Green $local:DIVIDER
       Write-Host -ForegroundColor Green $local:TITLE
@@ -56,7 +56,7 @@ function script:Print
     "FOOTER"
     {
       $local:TITLE = "| " + ($local:MESSAGE.ToUpper()) + " |"
-      $local:DIVIDER = "*" + ("-" * ($local:TITLE.Length)) + "*"
+      $local:DIVIDER = "*" + ("-" * ($local:TITLE.Length - 2)) + "*"
       Write-Host ""
       Write-Host -ForegroundColor Red $local:DIVIDER
       Write-Host -ForegroundColor Red $local:TITLE
