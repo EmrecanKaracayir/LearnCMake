@@ -1,16 +1,87 @@
 # PowerShell
+[CmdletBinding()]
+param (
+  [Alias("h")]
+  [switch] $Help = $false,
+
+  [Alias("v")]
+  [switch] $Version = $false,
+
+  [Alias("g")]
+  [switch] $Generate = $false,
+
+  [Alias("b")]
+  [switch] $Build = $false,
+
+  [Alias("c")]
+  [switch] $Customize = $false
+)
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Setup >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
+
+# Set the start time
+$script:START_TIME = Get-Date
 
 # Script constants
-$script:START_TIME = Get-Date
-#
 $script:SCRIPT_DIR = $PSScriptRoot
 $script:SCRIPT_NAME = $MyInvocation.MyCommand.Name
 $script:SCRIPT_VERSION = "1.0.0"
-#
+
+# Project constants
 $script:PROJECT_DIR = Split-Path -Parent $script:SCRIPT_DIR
 $script:PROJECT_NAME = (Get-Item $script:PROJECT_DIR).Name
 
-# Function to print predefined messages
+# Execution constants
+$script:WILL_GENERATE = $true
+$script:WILL_BUILD = $true
+$script:WILL_CUSTOMIZE = $false
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Functions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
+
+function script:Arguments
+{
+  # Handle -Help
+  if ($Help)
+  {
+    script:Print 0 "SUBTITLE" "HELP"
+    script:Print 0 "DEFAULT" "Displays the help information for the script."
+    script:Print 0 "INFORMATION" "Usage:"
+    script:Print 1 "DIMMED" "build.ps1 [options]"
+    script:Print 0 "INFORMATION" "Arguments:"
+    script:Print 1 "DIMMED" "-h, -Help      = Displays the help information."
+    script:Print 1 "DIMMED" "-v, -Version   = Displays the script version."
+    script:Print 1 "DIMMED" "-g, -Generate  = Generates the build system only."
+    script:Print 1 "DIMMED" "-b, -Build     = Builds the project only."
+    script:Print 1 "DIMMED" "-c, -Customize = Enables custom configurations."
+    exit 0
+  }
+
+  # Handle -Version
+  if ($Version)
+  {
+    Write-Host "v$script:SCRIPT_VERSION"
+    exit 0
+  }
+
+  # Handle -Generate
+  if ($Generate)
+  {
+    $script:WILL_BUILD = $false
+  }
+
+  # Handle -Build
+  if ($Build)
+  {
+    $script:WILL_GENERATE = $false
+  }
+
+  # Handle -Customize
+  if ($Customize)
+  {
+    $script:WILL_CUSTOMIZE = $true
+  }
+}
+
 function script:Print
 {
   param ([Int32] $local:TABS, [String] $local:TYPE, [String] $local:MESSAGE)
@@ -21,7 +92,6 @@ function script:Print
     0..($local:TABS - 1) | ForEach-Object { Write-Host -NoNewline "    " }
   }
 
-  # Print message
   switch ($local:TYPE)
   {
     "DEFAULT"
@@ -36,31 +106,36 @@ function script:Print
     {
       Write-Host ""
     }
-    "HEADER"
-    {
-      $local:TITLE = "| " + ($local:MESSAGE.ToUpper()) + " |"
-      $local:DIVIDER = "*" + ("-" * ($local:TITLE.Length - 2)) + "*"
-      Write-Host ""
-      Write-Host -ForegroundColor Green $local:DIVIDER
-      Write-Host -ForegroundColor Green $local:TITLE
-      Write-Host -ForegroundColor Green $local:DIVIDER
-    }
     "TITLE"
     {
-      $local:TITLE = $local:MESSAGE.ToUpper()
-      $local:DIVIDER = "-" * ($local:TITLE.Length)
+      $local:TEXT = "| " + ($local:MESSAGE.ToUpper()) + " |"
+      $local:DIVIDER = "*" + ("-" * ($local:TEXT.Length - 2)) + "*"
       Write-Host ""
-      Write-Host -ForegroundColor White $local:TITLE
+      Write-Host -ForegroundColor White $local:DIVIDER
+      Write-Host -ForegroundColor White $local:TEXT
       Write-Host -ForegroundColor White $local:DIVIDER
     }
-    "FOOTER"
+    "SUBTITLE"
     {
-      $local:TITLE = "| " + ($local:MESSAGE.ToUpper()) + " |"
-      $local:DIVIDER = "*" + ("-" * ($local:TITLE.Length - 2)) + "*"
+      $local:TEXT = $local:MESSAGE.ToUpper()
+      $local:DIVIDER = "-" * ($local:TEXT.Length)
       Write-Host ""
-      Write-Host -ForegroundColor Red $local:DIVIDER
-      Write-Host -ForegroundColor Red $local:TITLE
-      Write-Host -ForegroundColor Red $local:DIVIDER
+      Write-Host -ForegroundColor White $local:TEXT
+      Write-Host -ForegroundColor White $local:DIVIDER
+    }
+    "CHEVRON"
+    {
+      Write-Host -NoNewline -ForegroundColor DarkMagenta "[>] "
+    }
+    "PROMPT"
+    {
+      Write-Host -NoNewline -ForegroundColor DarkYellow "[<] "
+      Write-Host -ForegroundColor Yellow $local:MESSAGE
+    }
+    "SYSTEM"
+    {
+      Write-Host -NoNewline -ForegroundColor DarkMagenta "[>] "
+      Write-Host -ForegroundColor Magenta $local:MESSAGE
     }
     "FAILURE"
     {
@@ -70,7 +145,7 @@ function script:Print
     {
       Write-Host -ForegroundColor DarkYellow "[!] $local:MESSAGE"
     }
-    "MESSAGE"
+    "INFORMATION"
     {
       Write-Host -ForegroundColor DarkBlue "[i] $local:MESSAGE"
     }
@@ -85,89 +160,45 @@ function script:Print
   }
 }
 
-# Function to print system prompts
-function script:PrintSystemPrompt
-{
-  param ([String] $local:MESSAGE)
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Sections >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
 
-  # Print prompt
-  Write-Host -ForegroundColor DarkMagenta -NoNewline "[>] "
-  Write-Host -ForegroundColor Magenta $local:MESSAGE
-}
-
-# Function to print the user prompt
-function script:PrintUserPrompt
-{
-  # Print prompt
-  Write-Host -ForegroundColor DarkMagenta -NoNewline "[>] "
-}
-
-# Script section
 function script:Main
 {
-  # Print section information
-  script:Print 0 "HEADER" "BUILD SCRIPT"
-  script:Print 0 "DEFAULT" "Manages the build process of the project."
+  script:Print 0 "TITLE" "BUILD SCRIPT"
+  script:Print 0 "DEFAULT" "Manages the build process of the $script:PROJECT_NAME project."
 
-  # Print project information
-  script:Print 0 "MESSAGE" "Project details:"
-  script:Print 1 "DIMMED" "Project name      = $script:PROJECT_NAME"
-  script:Print 1 "DIMMED" "Project directory = $script:PROJECT_DIR"
-
-  # Print script information
-  script:Print 0 "MESSAGE" "Script details:"
+  script:Print 0 "INFORMATION" "Script details:"
   script:Print 1 "DIMMED" "Script name       = $script:SCRIPT_NAME"
-  script:Print 1 "DIMMED" "Script directory  = $script:SCRIPT_DIR"
   script:Print 1 "DIMMED" "Script version    = $script:SCRIPT_VERSION"
 
-  # Print shell information
-  script:Print 0 "MESSAGE" "Shell details:"
-  script:Print 1 "DIMMED" ("Shell name        = PowerShell " + ($PSVersionTable.PSEdition))
-  script:Print 1 "DIMMED" "Shell directory   = $PSHome"
-  script:Print 1 "DIMMED" ("Shell version     = " + ($PSVersionTable.PSVersion))
+  script:Print 0 "INFORMATION" "Shell details:"
+  script:Print 1 "DIMMED" ("Shell name       = PowerShell " + ($PSVersionTable.PSEdition))
+  script:Print 1 "DIMMED" ("Shell version    = " + ($PSVersionTable.PSVersion))
 
-
-  # Check if on Windows
-  if ($IsWindows -eq $false)
-  {
-    script:Print 0 "FAILURE" "This script is only supported on Windows."
-    exit 1
-  }
-
-  # Print platform information
-  script:Print 0 "MESSAGE" "Platform details:"
-  script:Print 1 "DIMMED" "System name      = $env:COMPUTERNAME"
+  script:Print 0 "INFORMATION" "Platform details:"
   script:Print 1 "DIMMED" ("Operating system = " + (Get-CimInstance -ClassName Win32_OperatingSystem).Caption)
-  script:Print 1 "DIMMED" ("Kernel version   = " + (Get-CimInstance -ClassName Win32_OperatingSystem).Version)
-  script:Print 1 "DIMMED" ("Processor family = " + (Get-CimInstance -ClassName Win32_Processor).Name)
   script:Print 1 "DIMMED" ("Architecture     = " + (Get-CimInstance -ClassName Win32_OperatingSystem).OSArchitecture)
 }
 
-# Verify section
 function script:Verify
 {
-  # Create a success flag
-  $local:SUCCESS = $true
-
-  # Print section information
-  script:Print 0 "TITLE" "VERIFY"
+  script:Print 0 "SUBTITLE" "VERIFY"
   script:Print 0 "DEFAULT" "Verifies the installation of necessary tools."
+
+  # Flags
+  $local:SUCCESS = $true
 
   # Check for CMake
   script:Print 0 "LOADING" "Checking for CMake..."
   if (Get-Command cmake -ErrorAction SilentlyContinue)
   {
-    script:Print 0 "MESSAGE" "CMake is installed. Details:"
-
-    # Print CMake details
+    script:Print 0 "INFORMATION" "CMake is installed. Details:"
     script:Print 1 "DIMMED" ("Path    = " + (Get-Command cmake).Source)
     script:Print 1 "DIMMED" ("Version = " + (cmake --version | Select-String -Pattern "cmake version").ToString().Split(" ")[2])
   }
   else
   {
     script:Print 0 "WARNING" "CMake is not installed. To install it:"
-
-    # Provide instructions for installing CMake
     script:Print 1 "DIMMED" "Windows > winget install --id=Kitware.CMake --exact"
     script:Print 1 "DIMMED" "macOS   > brew install cmake"
     script:Print 1 "DIMMED" "Linux   > Use your distribution's package manager."
@@ -176,30 +207,7 @@ function script:Verify
     $local:SUCCESS = $false
   }
 
-  # Check for Ninja
-  script:Print 0 "LOADING" "Checking for Ninja..."
-  if (Get-Command ninja -ErrorAction SilentlyContinue)
-  {
-    script:Print 0 "MESSAGE" "Ninja is installed. Details:"
-
-    # Print Ninja details
-    script:Print 1 "DIMMED" ("Path    = " + (Get-Command ninja).Source)
-    script:Print 1 "DIMMED" ("Version = " + (ninja --version))
-  }
-  else
-  {
-    script:Print 0 "WARNING" "Ninja is not installed. To install it:"
-
-    # Provide instructions for installing Ninja
-    script:Print 1 "DIMMED" "Windows > winget install --id=Ninja-build.Ninja --exact"
-    script:Print 1 "DIMMED" "macOS   > brew install ninja"
-    script:Print 1 "DIMMED" "Linux   > Use your distribution's package manager."
-
-    # Fail the check
-    $local:SUCCESS = $false
-  }
-
-  # Verify the success flag
+  # Verify flags
   if ($local:SUCCESS -eq $true)
   {
     script:Print 0 "SUCCESS" "All the necessary tools are installed."
@@ -211,70 +219,54 @@ function script:Verify
   }
 }
 
-# Generate section
 function script:Generate
 {
-  # Print section information
-  script:Print 0 "TITLE" "GENERATE"
+  script:Print 0 "SUBTITLE" "GENERATE"
   script:Print 0 "DEFAULT" "Generates the build files for the project."
 
-  # Get generator and compiler names
-  $local:GENERATOR_NAME = "Ninja"
-  $local:COMPILER_NAME = (cmake --system-information | Select-String -Pattern "CMAKE_CXX_COMPILER_ID ").Line.Split(" ")[1].Replace('"', '')
-
-  # Print configuration details
-  script:Print 0 "MESSAGE" "Configuration details:"
-  script:Print 1 "DIMMED" "Source path = $script:PROJECT_NAME\source"
-  script:Print 1 "DIMMED" "Build path  = $script:PROJECT_NAME\build"
-  script:Print 1 "DIMMED" "Generator   = $local:GENERATOR_NAME"
-  script:Print 1 "DIMMED" "Compiler    = $local:COMPILER_NAME"
-
-  # Check the cache
+  # Handle cache
   script:Print 0 "LOADING" "Checking the cache..."
   if (Test-Path "$script:PROJECT_DIR\build\CMakeCache.txt")
   {
-    script:Print 0 "WARNING" "Cache found. Would you like to discard it? [Y/N]"
-
-    # Prompt the user to discard the cache
-    script:PrintUserPrompt
-    $local:DISCARD_CACHE = Read-Host
-
-    # Discard the cache if requested
-    if ($local:DISCARD_CACHE -eq "Y" -or $local:DISCARD_CACHE -eq "y")
-    {
-      # Remove everything in the build directory
-      script:Print 0 "LOADING" "Cleaning up the cache..."
-      Remove-Item -Path "$script:PROJECT_DIR\build\*" -Recurse -Force
-
-      # Inform the user that cache cle
-      script:Print 0 "MESSAGE" "Cache cleaned up."
-    }
-    else
-    {
-      # Inform the user that the cache is used
-      script:Print 0 "SUCCESS" "Skipped build system generation."
-      return
-    }
+    script:Print 0 "LOADING" "Cache found, cleaning up..."
+    Remove-Item -Path "$script:PROJECT_DIR\build\*" -Recurse -Force
+    script:Print 0 "INFORMATION" "Cache cleaned up."
   }
   else
   {
-    script:Print 0 "MESSAGE" "No cache found."
+    script:Print 0 "INFORMATION" "No cache found."
   }
 
-  # Create the build directory if it does not exist
+  # Handle build directory
   if (-not (Test-Path "$script:PROJECT_DIR\build"))
   {
     script:Print 0 "LOADING" "Creating the build directory..."
     New-Item -Path "$script:PROJECT_DIR\build" -ItemType Directory | Out-Null
+    script:Print 0 "INFORMATION" "Build directory created."
+  }
 
-    # Inform the user that the build directory is created
-    script:Print 0 "MESSAGE" "Build directory created."
+  # Handle custom configurations
+  $local:EXTRA_ARGS = ""
+  if ($script:WILL_CUSTOMIZE -eq $true)
+  {
+    script:Print 0 "PROMPT" "Enter extra arguments for CMake:"
+    script:Print 0 "CHEVRON"
+    $local:EXTRA_ARGS = Read-Host
+    script:Print 0 "INFORMATION" "Extra arguments set."
   }
 
   # Generate the build system
   script:Print 0 "LOADING" "Generating the build system..."
-  script:PrintSystemPrompt "cmake -G `"$local:GENERATOR_NAME`" -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build"
-  cmake -G "$local:GENERATOR_NAME" -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build
+  if ($local:EXTRA_ARGS -ne "")
+  {
+    script:Print 0 "SYSTEM" "cmake -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build $local:EXTRA_ARGS"
+    Invoke-Expression "cmake -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build $local:EXTRA_ARGS"
+  }
+  else
+  {
+    script:Print 0 "SYSTEM" "cmake -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build"
+    cmake -S $script:PROJECT_DIR -B $script:PROJECT_DIR\build
+  }
 
   # Check if the build system generation was successful
   if ($LASTEXITCODE -eq 0)
@@ -288,17 +280,33 @@ function script:Generate
   }
 }
 
-# Build section
 function script:Build
 {
-  # Print section information
   script:Print 0 "TITLE" "BUILD"
   script:Print 0 "DEFAULT" "Builds the project using the generated build system."
 
+  # Handle custom configurations
+  $local:EXTRA_ARGS = ""
+  if ($script:WILL_CUSTOMIZE -eq $true)
+  {
+    script:Print 0 "PROMPT" "Enter extra arguments for CMake:"
+    script:Print 0 "CHEVRON"
+    $local:EXTRA_ARGS = Read-Host
+    script:Print 0 "INFORMATION" "Extra arguments set."
+  }
+
   # Build the project
   script:Print 0 "LOADING" "Building the project..."
-  script:PrintSystemPrompt "cmake --build $script:PROJECT_DIR\build"
-  cmake --build $script:PROJECT_DIR\build
+  if ($local:EXTRA_ARGS -ne "")
+  {
+    script:Print 0 "SYSTEM" "cmake --build $script:PROJECT_DIR\build $local:EXTRA_ARGS"
+    Invoke-Expression "cmake --build $script:PROJECT_DIR\build $local:EXTRA_ARGS"
+  }
+  else
+  {
+    script:Print 0 "SYSTEM" "cmake --build $script:PROJECT_DIR\build"
+    cmake --build $script:PROJECT_DIR\build
+  }
 
   # Check if the build was successful
   if ($LASTEXITCODE -eq 0)
@@ -312,37 +320,43 @@ function script:Build
   }
 }
 
-# Summary section
 function script:Summary
 {
-  # Print section information
-  script:Print 0 "FOOTER" "SCRIPT SUMMARY"
+  script:Print 0 "TITLE" "SCRIPT SUMMARY"
   script:Print 0 "DEFAULT" "Displays the summary of the script's execution."
 
   # Calculate the script execution time
   $local:END_TIME = Get-Date
   $local:EXECUTION_TIME = (New-TimeSpan -Start $script:START_TIME -End ($local:END_TIME))
-
-  # Convert the execution time to seconds
   $local:EXECUTION_TIME_STR = $local:EXECUTION_TIME.TotalSeconds.ToString("F2")
 
   # Print the summary
-  script:Print 0 "MESSAGE" "Execution summary:"
+  script:Print 0 "INFORMATION" "Execution summary:"
   script:Print 1 "DIMMED" ("Start time     = " + ($script:START_TIME.ToString("HH:mm:ss")))
   script:Print 1 "DIMMED" ("End time       = " + ($local:END_TIME.ToString("HH:mm:ss")))
   script:Print 1 "DIMMED" "Execution time = $local:EXECUTION_TIME_STR seconds"
 }
 
-# Script execution
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Execution >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
+
+# Execute arguments
+script:Arguments
+
+# Check if on Windows
+if ($IsWindows -eq $false)
+{
+  script:Print 0 "FAILURE" "This script is only supported on Windows."
+  exit 1
+}
+
+# Execute sections
 script:Main
 script:Verify
-script:Generate
-script:Build
+if ($script:WILL_GENERATE -eq $true) { script:Generate }
+if ($script:WILL_BUILD -eq $true) { script:Build }
 script:Summary
 
-# Print the completion message
+# Exit the script
 script:Print 0 "SUCCESS" "Script execution completed."
 script:Print 0 "EMPTY"
-
-# Exit the script
 exit 0
