@@ -102,10 +102,6 @@ function script:Print
     {
       Write-Host -ForegroundColor DarkGray "[-] $local:MESSAGE"
     }
-    "EMPTY"
-    {
-      Write-Host ""
-    }
     "TITLE"
     {
       $local:TEXT = "| " + ($local:MESSAGE.ToUpper()) + " |"
@@ -358,5 +354,4 @@ script:Summary
 
 # Exit the script
 script:Print 0 "SUCCESS" "Script execution completed."
-script:Print 0 "EMPTY"
 exit 0

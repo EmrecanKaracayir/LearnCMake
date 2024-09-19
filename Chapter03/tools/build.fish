@@ -82,8 +82,6 @@ function print
         case DIMMED
             set_color brblack
             echo "[-] $argv[3]"
-        case EMPTY
-            echo ""
         case TITLE
             set --local TEXT "| $(string upper $argv[3]) |"
             set --local DIVIDER "*$(string repeat --count (math (string length $TEXT) - 2) -)*"
@@ -308,5 +306,4 @@ summary
 
 # Exit the script
 print 0 SUCCESS "Script execution completed."
-print 0 EMPTY
 exit 0
