@@ -1,13 +1,10 @@
 # [VERSION]: CMake
 cmake_minimum_required(VERSION 3.30)
 
-# [CMAKE]: Compiler
-include("${CMAKE_SOURCE_DIR}/cmake/compiler.cmake")
-
-# [CMAKE]: Chapter04
+# [SOLUTION]: Chapter04
 project(SLN_Chapter04 VERSION 1.0.0 LANGUAGES CXX)
 
-# [IMPORT]: Language
+# [CMAKE]: Language
 include("${CMAKE_SOURCE_DIR}/cmake/language.cmake")
 
 # [PROJECT]: IO

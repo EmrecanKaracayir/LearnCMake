@@ -222,7 +222,7 @@ function generate
     print 0 LOADING "Generating the build system..."
     if not test -z $EXTRA_ARGS
         print 0 SYSTEM "cmake -S $PROJECT_DIR -B $PROJECT_DIR/build $EXTRA_ARGS"
-        eval (cmake -S $PROJECT_DIR -B $PROJECT_DIR/build $EXTRA_ARGS)
+        eval cmake -S $PROJECT_DIR -B $PROJECT_DIR/build $EXTRA_ARGS
     else
         print 0 SYSTEM "cmake -S $PROJECT_DIR -B $PROJECT_DIR/build"
         cmake -S $PROJECT_DIR -B $PROJECT_DIR/build
@@ -260,7 +260,7 @@ function build
     print 0 LOADING "Building the project..."
     if not test -z $EXTRA_ARGS
         print 0 SYSTEM "cmake --build $PROJECT_DIR/build $EXTRA_ARGS"
-        eval (cmake --build $PROJECT_DIR/build $EXTRA_ARGS)
+        eval cmake --build $PROJECT_DIR/build $EXTRA_ARGS
     else
         print 0 SYSTEM "cmake --build $PROJECT_DIR/build"
         cmake --build $PROJECT_DIR/build
