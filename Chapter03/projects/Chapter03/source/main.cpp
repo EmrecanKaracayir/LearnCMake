@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 
-int main()
+auto main() -> int
 {
   std::cout << "Hello, CMake!\n";
   return EXIT_SUCCESS;

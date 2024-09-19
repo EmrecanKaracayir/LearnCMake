@@ -1,8 +1,11 @@
-# Specify the minimum required version of CMake to build the project
+# [VERSION]: CMake
 cmake_minimum_required(VERSION 3.30)
 
-# Specify the name of the project
-project(Chapter03 VERSION 1.0.0 LANGUAGES CXX)
+# [SOLUTION]: Chapter03
+project(SLN_Chapter03 VERSION 1.0.0 LANGUAGES CXX)
 
-# Add an executable target called Chapter03
-add_executable(Chapter03 source/Chapter03/main.cpp)
+# [VERSION]: C++20
+set(CMAKE_CXX_STANDARD 20)
+
+# [PROJECT]: Chapter03
+add_subdirectory("projects/Chapter03")
