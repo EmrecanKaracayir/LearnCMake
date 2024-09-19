@@ -33,15 +33,15 @@ function arguments
     # Handle --help
     if set --query _flag_help
         print 0 SUBTITLE HELP
-        print 0 DEFAULT "Displays the script usage."
-        print 0 INFORMATION "Syntax:"
+        print 0 DEFAULT "Displays the help information for the script."
+        print 0 INFORMATION "Usage:"
         print 1 DIMMED "$SCRIPT_NAME [options]"
         print 0 INFORMATION "Options:"
-        print 1 DIMMED "-h, --help      = Displays the script usage."
+        print 1 DIMMED "-h, --help      = Displays the help information."
         print 1 DIMMED "-v, --version   = Displays the script version."
         print 1 DIMMED "-g, --generate  = Generates the build system only."
         print 1 DIMMED "-b, --build     = Builds the project only."
-        print 1 DIMMED "-c, --customize = Enables custom build configurations."
+        print 1 DIMMED "-c, --customize = Enables custom configurations."
         exit 0
     end
 
@@ -51,12 +51,12 @@ function arguments
         exit 0
     end
 
-    # Handle --only-generate
+    # Handle --generate
     if set --query _flag_only_generate
         set BUILD 0
     end
 
-    # Handle --only-build
+    # Handle --build
     if set --query _flag_only_build
         set GENERATE 0
     end
@@ -75,7 +75,6 @@ function print
         end
     end
 
-    # Print INFORMATION
     switch $argv[2]
         case DEFAULT
             set_color normal
@@ -116,7 +115,7 @@ function print
             set_color normal
         case FAILURE
             set_color red
-            echo "[x] $argv[3]"
+            echo "[X] $argv[3]"
         case WARNING
             set_color yellow
             echo "[!] $argv[3]"
@@ -138,46 +137,37 @@ end
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Sections >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
 
 function main
-    # Print section information
     print 0 TITLE "BUILD SCRIPT"
-    print 0 DEFAULT "Manages the build process of the $PROJECT_NAME."
+    print 0 DEFAULT "Manages the build process of the $PROJECT_NAME project."
 
-    # Print script information
     print 0 INFORMATION "Script details:"
     print 1 DIMMED "Script name      = $SCRIPT_NAME"
     print 1 DIMMED "Script version   = $SCRIPT_VERSION"
 
-    # Print shell information
     print 0 INFORMATION "Shell details:"
     print 1 DIMMED "Shell name       = Fish"
     print 1 DIMMED "Shell version    = $FISH_VERSION"
 
-    # Print platform information
     print 0 INFORMATION "Platform details:"
     print 1 DIMMED "Operating system = $(uname -s)"
     print 1 DIMMED "Architecture     = $(uname -m)"
 end
 
 function verify
-    # Print section information
     print 0 SUBTITLE VERIFY
     print 0 DEFAULT "Verifies the installation of necessary tools."
 
-    # Create a success flag
+    # Flags
     set --local SUCCESS 1
 
     # Check for CMake
     print 0 LOADING "Checking for CMake..."
     if type --query cmake
         print 0 INFORMATION "CMake is installed. Details:"
-
-        # Print CMake details
         print 1 DIMMED "Path    = $(which cmake)"
         print 1 DIMMED "Version = $(cmake --version | head -n 1 | cut -d ' ' -f 3)"
     else
         print 0 WARNING "CMake is not installed. To install it:"
-
-        # Provide instructions for installing CMake
         print 1 DIMMED "Windows > winget install --id=Kitware.CMake --exact"
         print 1 DIMMED "macOS   > brew install cmake"
         print 1 DIMMED "Linux   > Use your distribution's package manager."
@@ -186,7 +176,7 @@ function verify
         set SUCCESS 0
     end
 
-    # Verify the success flag
+    # Verify flags
     if test $SUCCESS -eq 1
         print 0 SUCCESS "All the necessary tools are installed."
     else
@@ -196,36 +186,30 @@ function verify
 end
 
 function generate
-    # Print section information
     print 0 SUBTITLE GENERATE
     print 0 DEFAULT "Generates the build files for the project."
 
-    # Check the cache
+    # Handle cache
     print 0 LOADING "Checking the cache..."
     if test -e $PROJECT_DIR/build/CMakeCache.txt
-        print 0 LOADING "Cache found, cleaning..."
-        rm -rf $PROJECT_DIR/build
-        print 0 INFORMATION "Cache cleaned."
+        print 0 LOADING "Cache found, cleaning up..."
+        rm -rf $PROJECT_DIR/build/*
+        print 0 INFORMATION "Cache cleaned up."
     else
         print 0 INFORMATION "No cache found."
     end
 
-    # Create the build directory if it does not exist
+    # Handle build directory
     if test -d $PROJECT_DIR/build
         print 0 LOADING "Creating the build directory..."
         mkdir -p $PROJECT_DIR/build
-
-        # Inform the user that the build directory is created
         print 0 INFORMATION "Build directory created."
     end
 
     # Handle custom configurations
     set --local EXTRA_ARGS ""
     if test $CUSTOMIZE -eq 1
-        # Prompt the user for extra arguments
-        print 0 PROMPT "Enter extra arguments to be passed to CMake."
-
-        # Read extra arguments
+        print 0 PROMPT "Enter extra arguments for CMake:"
         if read --prompt-str (print 0 CHEVRON) EXTRA_ARGS
             print 0 INFORMATION "Extra arguments set."
         else
@@ -236,8 +220,13 @@ function generate
 
     # Generate the build system
     print 0 LOADING "Generating the build system..."
-    print 0 SYSTEM "cmake -S $PROJECT_DIR -B $PROJECT_DIR/build $EXTRA_ARGS"
-    eval cmake -S $PROJECT_DIR -B $PROJECT_DIR/build $EXTRA_ARGS
+    if test $EXTRA_ARGS -ne ""
+        print 0 SYSTEM "cmake -S $PROJECT_DIR -B $PROJECT_DIR/build $EXTRA_ARGS"
+        eval (cmake -S $PROJECT_DIR -B $PROJECT_DIR/build $EXTRA_ARGS)
+    else
+        print 0 SYSTEM "cmake -S $PROJECT_DIR -B $PROJECT_DIR/build"
+        cmake -S $PROJECT_DIR -B $PROJECT_DIR/build
+    end
 
     # Check if the build system generation was successful
     if test $status -eq 0
@@ -249,7 +238,6 @@ function generate
 end
 
 function build
-    # Print section information
     print 0 SUBTITLE BUILD
     print 0 DEFAULT "Builds the project using the generated build system."
 
@@ -270,8 +258,13 @@ function build
 
     # Build the project
     print 0 LOADING "Building the project..."
-    print 0 SYSTEM "cmake --build $PROJECT_DIR/build $EXTRA_ARGS"
-    eval cmake --build $PROJECT_DIR/build $EXTRA_ARGS
+    if test $EXTRA_ARGS -ne ""
+        print 0 SYSTEM "cmake --build $PROJECT_DIR/build $EXTRA_ARGS"
+        eval (cmake --build $PROJECT_DIR/build $EXTRA_ARGS)
+    else
+        print 0 SYSTEM "cmake --build $PROJECT_DIR/build"
+        cmake --build $PROJECT_DIR/build
+    end
 
     # Check if the build was successful
     if test $status -eq 0
@@ -283,7 +276,6 @@ function build
 end
 
 function summary
-    # Print section information
     print 0 TITLE "SCRIPT SUMMARY"
     print 0 DEFAULT "Displays the summary of the script's execution."
 
@@ -300,7 +292,7 @@ end
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Execution >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
 
-# Execute the arguments function
+# Execute arguments
 arguments $argv
 
 # Execute sections
@@ -314,9 +306,7 @@ if test $BUILD -eq 1
 end
 summary
 
-# Print the completion INFORMATION
+# Exit the script
 print 0 SUCCESS "Script execution completed."
 print 0 EMPTY
-
-# Exit the script
 exit 0
