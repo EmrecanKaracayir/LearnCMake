@@ -11,5 +11,5 @@ add_library(
 # [INCLUDE]: Log
 target_include_directories(Log PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
-# [LINK]: Log -> IO
+# [LINK]: Log
 target_link_libraries(Log PUBLIC IO)
