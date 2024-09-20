@@ -233,14 +233,6 @@ function script:Generate
     script:Print 0 "INFORMATION" "No cache found."
   }
 
-  # Handle build directory
-  if (-not (Test-Path "$script:PROJECT_DIR\build"))
-  {
-    script:Print 0 "LOADING" "Creating the build directory..."
-    New-Item -Path "$script:PROJECT_DIR\build" -ItemType Directory | Out-Null
-    script:Print 0 "INFORMATION" "Build directory created."
-  }
-
   # Handle custom configurations
   $local:EXTRA_ARGS = ""
   if ($script:WILL_CUSTOMIZE -eq $true)

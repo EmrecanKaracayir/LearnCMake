@@ -197,13 +197,6 @@ function generate
         print 0 INFORMATION "No cache found."
     end
 
-    # Handle build directory
-    if test -d $PROJECT_DIR/build
-        print 0 LOADING "Creating the build directory..."
-        mkdir -p $PROJECT_DIR/build
-        print 0 INFORMATION "Build directory created."
-    end
-
     # Handle custom configurations
     set --local EXTRA_ARGS ""
     if test $CUSTOMIZE -eq 1
