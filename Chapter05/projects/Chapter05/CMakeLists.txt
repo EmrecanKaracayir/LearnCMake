@@ -23,13 +23,13 @@ if (UNIX)
   # Passing test
   add_test(
     NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/passing.fish"
+    COMMAND "${CMAKE_SOURCE_DIR}/tests/Chapter05/passing.fish"
   )
 
   # Failing test
   add_test(
     NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/failing.fish"
+    COMMAND "${CMAKE_SOURCE_DIR}/tests/Chapter05/failing.fish"
   )
 
 else ()
@@ -37,13 +37,13 @@ else ()
   # Passing test
   add_test(
     NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/passing.ps1"
+    COMMAND "${CMAKE_SOURCE_DIR}/tests/Chapter05/passing.ps1"
   )
 
   # Failing test
   add_test(
     NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/failing.ps1"
+    COMMAND "${CMAKE_SOURCE_DIR}/tests/Chapter05/failing.ps1"
   )
 
 endif (UNIX)
