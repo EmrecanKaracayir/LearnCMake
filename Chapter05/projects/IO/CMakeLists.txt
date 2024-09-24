@@ -4,16 +4,22 @@ project(PRJ_IO)
 
 # >----------< TARGET : IO >---------------------------------------------------------------------< #
 
-add_library(
+add_library(IO INTERFACE)
+
+target_sources(
   IO
   INTERFACE
-  "include/IO/input.hpp"
-  "include/IO/output.hpp"
+    FILE_SET api
+    TYPE HEADERS
+    BASE_DIRS "include"
+    FILES
+      "include/IO/input.hpp"
+      "include/IO/output.hpp"
 )
 
-target_include_directories(IO INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+install(TARGETS IO FILE_SET api)
 
-# >----------< TESTS >---------------------------------------------------------------------------< #
+# >----------< TESTING >-------------------------------------------------------------------------< #
 
 if (UNIX)
 

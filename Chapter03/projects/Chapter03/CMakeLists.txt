@@ -1,8 +1,13 @@
-# [PROJECT]: Chapter03
+# >----------< PROJECT : Chapter05 >-------------------------------------------------------------< #
+
 project(PRJ_Chapter03)
 
-# [TARGET]: Chapter03
-add_executable(Chapter03 "source/main.cpp")
+# >----------< TARGET : Chapter03 >--------------------------------------------------------------< #
 
-# [INCLUDE]: Chapter03
-target_include_directories(Chapter03 PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+add_executable(Chapter03)
+
+target_sources(
+  Chapter03
+  PRIVATE
+    "source/main.cpp"
+)

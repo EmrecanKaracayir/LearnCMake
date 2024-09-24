@@ -1,15 +1,21 @@
-# [PROJECT]: Statistics
+# >----------< PROJECT : Statistics >------------------------------------------------------------< #
+
 project(PRJ_Statistics)
 
-# [TARGET]: Statistics
-add_library(
+# >----------< TARGET : Statistics >-------------------------------------------------------------< #
+
+add_library(Statistics)
+
+target_sources(
   Statistics
-  "include/Statistics/average.hpp"
-  "source/Statistics/average.cpp"
+  PUBLIC
+    FILE_SET api
+    TYPE HEADERS
+    BASE_DIRS "include"
+    FILES
+      "include/Statistics/average.hpp"
+  PRIVATE
+    "source/Statistics/average.cpp"
 )
 
-# [INCLUDE]: Statistics
-target_include_directories(Statistics PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-# [LINK]: Statistics
 target_link_libraries(Statistics PUBLIC Math)

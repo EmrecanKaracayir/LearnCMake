@@ -1,13 +1,18 @@
-# [PROJECT]: IO
+# >----------< PROJECT : IO >--------------------------------------------------------------------< #
+
 project(PRJ_IO)
 
-# [TARGET]: IO
-add_library(
+# >----------< TARGET : IO >---------------------------------------------------------------------< #
+
+add_library(IO INTERFACE)
+
+target_sources(
   IO
   INTERFACE
-  "include/IO/input.hpp"
-  "include/IO/output.hpp"
+    FILE_SET api
+    TYPE HEADERS
+    BASE_DIRS "include"
+    FILES
+      "include/IO/input.hpp"
+      "include/IO/output.hpp"
 )
-
-# [INCLUDE]: IO
-target_include_directories(IO INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")

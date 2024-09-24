@@ -4,19 +4,25 @@ project(PRJ_Chapter05)
 
 # >----------< TARGET : Chapter05 >--------------------------------------------------------------< #
 
-add_executable(Chapter05 "source/main.cpp")
+add_executable(Chapter05)
 
-target_include_directories(Chapter05 PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_sources(
+  Chapter05
+  PRIVATE
+    "source/main.cpp"
+)
 
 target_link_libraries(
   Chapter05
   PRIVATE
-  Log
-  Geometry
-  Statistics
+    Log
+    Geometry
+    Statistics
 )
 
-# >----------< TESTS >---------------------------------------------------------------------------< #
+install(TARGETS Chapter05)
+
+# >----------< TESTING >-------------------------------------------------------------------------< #
 
 if (UNIX)
 

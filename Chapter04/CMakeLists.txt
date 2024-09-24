@@ -1,32 +1,31 @@
-# [VERSION]: CMake
+# >----------< CMAKE >---------------------------------------------------------------------------< #
+
 cmake_minimum_required(VERSION 3.30)
 
-# [SOLUTION]: Chapter04
+# >----------< SOLUTION : Chapter04 >------------------------------------------------------------< #
+
 project(SLN_Chapter04 VERSION 1.0.0 LANGUAGES CXX)
 
-# [CMAKE]: Language
+# >----------< INCLUDES >------------------------------------------------------------------------< #
+
 include("${CMAKE_SOURCE_DIR}/cmake/language.cmake")
 
-# [PROJECT]: IO
-# [DEPENDS]: {}
+# >----------< PROJECTS >------------------------------------------------------------------------< #
+
+# IO -> {}
 add_subdirectory("projects/IO")
 
-# [PROJECT]: Log
-# [DEPENDS]: { IO }
+# Log -> { IO }
 add_subdirectory("projects/Log")
 
-# [PROJECT]: Math
-# [DEPENDS]: {}
+# Math -> {}
 add_subdirectory("projects/Math")
 
-# [PROJECT]: Geometry
-# [DEPENDS]: { Math }
+# Geometry -> { Math }
 add_subdirectory("projects/Geometry")
 
-# [PROJECT]: Statistics
-# [DEPENDS]: { Math }
+# Statistics -> { Math }
 add_subdirectory("projects/Statistics")
 
-# [PROJECT]: Chapter04
-# [DEPENDS]: { Log, Geometry, Statistics }
+# Chapter04 -> { Log, Geometry, Statistics }
 add_subdirectory("projects/Chapter04")

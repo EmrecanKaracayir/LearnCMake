@@ -1,15 +1,21 @@
-# [PROJECT]: Geometry
+# >----------< PROJECT : Geometry >--------------------------------------------------------------< #
+
 project(PRJ_Geometry)
 
-# [TARGET]: Geometry
-add_library(
+# >----------< TARGET : Geometry >---------------------------------------------------------------< #
+
+add_library(Geometry)
+
+target_sources(
   Geometry
-  "include/Geometry/Rectangle.hpp"
-  "source/Geometry/Rectangle.cpp"
+  PUBLIC
+    FILE_SET api
+    TYPE HEADERS
+    BASE_DIRS "include"
+    FILES
+      "include/Geometry/Rectangle.hpp"
+  PRIVATE
+    "source/Geometry/Rectangle.cpp"
 )
 
-# [INCLUDE]: Geometry
-target_include_directories(Geometry PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-# [LINK]: Geometry
 target_link_libraries(Geometry PRIVATE Math)

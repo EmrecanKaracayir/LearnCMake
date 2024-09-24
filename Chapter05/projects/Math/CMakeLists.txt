@@ -4,21 +4,29 @@ project(PRJ_Math)
 
 # >----------< Target : Math >-------------------------------------------------------------------< #
 
-add_library(
+add_library(Math)
+
+target_sources(
   Math
-  "include/Math/addition.hpp"
-  "include/Math/division.hpp"
-  "include/Math/multiplication.hpp"
-  "include/Math/subtraction.hpp"
-  "source/Math/addition.cpp"
-  "source/Math/division.cpp"
-  "source/Math/multiplication.cpp"
-  "source/Math/subtraction.cpp"
+  PUBLIC
+    FILE_SET api
+    TYPE HEADERS
+    BASE_DIRS "include"
+    FILES
+      "include/Math/addition.hpp"
+      "include/Math/division.hpp"
+      "include/Math/multiplication.hpp"
+      "include/Math/subtraction.hpp"
+  PRIVATE
+    "source/Math/addition.cpp"
+    "source/Math/division.cpp"
+    "source/Math/multiplication.cpp"
+    "source/Math/subtraction.cpp"
 )
 
-target_include_directories(Math PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+install(TARGETS Math FILE_SET api)
 
-# >----------< TESTS >---------------------------------------------------------------------------< #
+# >----------< TESTING >-------------------------------------------------------------------------< #
 
 if (UNIX)
 

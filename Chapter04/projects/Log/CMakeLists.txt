@@ -1,15 +1,21 @@
-# [PROJECT]: Log
+# >----------< PROJECT : Math >------------------------------------------------------------------< #
+
 project(PRJ_Log)
 
-# [TARGET]: Log
-add_library(
+# >----------< TARGET : Log >--------------------------------------------------------------------< #
+
+add_library(Log)
+
+target_sources(
   Log
-  "include/Log/log.hpp"
-  "source/Log/log.cpp"
+  PUBLIC
+    FILE_SET api
+    TYPE HEADERS
+    BASE_DIRS "include"
+    FILES
+      "include/Log/log.hpp"
+  PRIVATE
+    "source/Log/log.cpp"
 )
 
-# [INCLUDE]: Log
-target_include_directories(Log PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
-
-# [LINK]: Log
 target_link_libraries(Log PUBLIC IO)

@@ -4,17 +4,25 @@ project(PRJ_Log)
 
 # >----------< TARGET : Log >--------------------------------------------------------------------< #
 
-add_library(
-  Log
-  "include/Log/log.hpp"
-  "source/Log/log.cpp"
-)
+add_library(Log)
 
-target_include_directories(Log PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_sources(
+  Log
+  PUBLIC
+    FILE_SET api
+    TYPE HEADERS
+    BASE_DIRS "include"
+    FILES
+      "include/Log/log.hpp"
+  PRIVATE
+    "source/Log/log.cpp"
+)
 
 target_link_libraries(Log PUBLIC IO)
 
-# >----------< TESTS >---------------------------------------------------------------------------< #
+install(TARGETS Log FILE_SET api)
+
+# >----------< TESTING >-------------------------------------------------------------------------< #
 
 if (UNIX)
 

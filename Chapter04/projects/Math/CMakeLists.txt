@@ -1,18 +1,25 @@
-# [PROJECT]: Math
+# >----------< PROJECT : Math >------------------------------------------------------------------< #
+
 project(PRJ_Math)
 
-# [TARGET]: Math
-add_library(
-  Math
-  "include/Math/addition.hpp"
-  "include/Math/division.hpp"
-  "include/Math/multiplication.hpp"
-  "include/Math/subtraction.hpp"
-  "source/Math/addition.cpp"
-  "source/Math/division.cpp"
-  "source/Math/multiplication.cpp"
-  "source/Math/subtraction.cpp"
-)
+# >----------< Target : Math >-------------------------------------------------------------------< #
 
-# [INCLUDE]: Math
-target_include_directories(Math PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+add_library(Math)
+
+target_sources(
+  Math
+  PUBLIC
+    FILE_SET api
+    TYPE HEADERS
+    BASE_DIRS "include"
+    FILES
+      "include/Math/addition.hpp"
+      "include/Math/division.hpp"
+      "include/Math/multiplication.hpp"
+      "include/Math/subtraction.hpp"
+  PRIVATE
+    "source/Math/addition.cpp"
+    "source/Math/division.cpp"
+    "source/Math/multiplication.cpp"
+    "source/Math/subtraction.cpp"
+)
