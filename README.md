@@ -4,17 +4,77 @@ Following the [Professional CMake: A Practical Guide](https://crascit.com/profes
 
 Workshops include custom projects and exercises to practice the concepts learned in the book. The workshops are written in modern CMake following the best practices and idioms.
 
-Each chapter requiring a training from the book will have a corresponding workshop as a CMake project.
+Each chapter from the book will have a corresponding workshop as a CMake project.
 
 ## Workshops
 
-- **Chapter 01: Introduction**
-  - _No project required._
-- **Chapter 02: Setting Up A Project**
-  - _No project required._
-- **[Chapter 03:](./Chapter03/) A Minimal Project**
-  - TODO
-- **[Chapter 04:](./Chapter04/) Building Simple Targets**
-  - TODO
-- **[Chapter 05:](./Chapter05/) Basic Testing And Deployment**
-  - TODO
+- **[Chapter 01:](./Chapter01/)** Introduction
+- **[Chapter 02:](./Chapter02/)** Setting Up A Project
+- **[Chapter 03:](./Chapter03/)** A Minimal Project
+- **[Chapter 04:](./Chapter04/)** Building Simple Targets
+- **[Chapter 05:](./Chapter05/)** Basic Testing And Deployment
+
+## How to use this repository?
+
+### 📋 Prerequisites
+
+- Ensure you have CMake installed on your system (version 3.30 or later recommended).
+- Familiarity with basic C++ programming is assumed.
+- Access to the [Professional CMake: A Practical Guide](https://crascit.com/professional-cmake/) book is highly recommended.
+
+### 📁 Repository structure
+
+Each chapter has its own directory (e.g., `Chapter01`, `Chapter02`, etc.)
+
+Within each chapter directory, you'll find:
+
+- A `README.md` file containing:
+  - Part 1: Summary of key concepts from the book chapter
+  - Part 2: Workshop explanation and instructions
+- Project files and directories for the workshop
+
+### 📝 Working through the workshops
+
+Start with Chapter 01 and progress sequentially.
+
+For each chapter:
+
+1. Read the corresponding chapter in the [Professional CMake: A Practical Guide](https://crascit.com/professional-cmake/) book.
+2. Attempt to complete the exercises on your own.
+3. If you're stuck, review the chapter's `README.md` in this repository for a summary of key points.
+4. Use the provided workshop as a reference solution for comparison with your own work.
+
+### 🔨 Building the projects
+
+Each workshop can be built using the provided build scripts:
+
+- On Linux or macOS:
+  ```sh
+  ./tools/build.fish
+  ```
+- On Windows:
+  ```PowerShell
+  .\tools\build.ps1
+  ```
+  Workshops can also be built using standard CMake commands:
+
+```sh
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+Specific build instructions, if different, will be provided in the chapter's README.
+
+### 🚨 Getting Help
+
+If you encounter issues or have questions, check the following resources:
+
+- The chapter's README for any troubleshooting tips
+- The official [CMake documentation](https://cmake.org/documentation/)
+- Open an issue in this repository for project-specific problems
+
+### 🫱🏼‍🫲🏽 Contributing
+
+Feedback and contributions are welcome! If you find errors or have suggestions for improvements, please open an issue or submit a pull request.

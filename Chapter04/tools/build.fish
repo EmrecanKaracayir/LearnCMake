@@ -149,6 +149,8 @@ function main
     print 0 INFORMATION "Platform details:"
     print 1 DIMMED "Operating system = $(uname -s)"
     print 1 DIMMED "Architecture     = $(uname -m)"
+
+    print 0 INFORMATION "For more information, use the '--help' option."
 end
 
 function verify
@@ -236,7 +238,7 @@ function build
     set --local EXTRA_ARGS ""
     if test $CUSTOMIZE -eq 1
         # Prompt the user for extra arguments
-        print 0 PROMPT "Enter extra arguments to be passed to CMake."
+        print 0 PROMPT "Enter extra arguments for CMake."
 
         # Read extra arguments
         if read --prompt-str (print 0 CHEVRON) EXTRA_ARGS

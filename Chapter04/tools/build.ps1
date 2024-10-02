@@ -174,6 +174,8 @@ function script:Main
   script:Print 0 "INFORMATION" "Platform details:"
   script:Print 1 "DIMMED" ("Operating system = " + (Get-CimInstance -ClassName Win32_OperatingSystem).Caption)
   script:Print 1 "DIMMED" ("Architecture     = " + (Get-CimInstance -ClassName Win32_OperatingSystem).OSArchitecture)
+
+  script:Print 0 "INFORMATION" "For more information, use the '-Help' option."
 }
 
 function script:Verify
