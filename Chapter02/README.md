@@ -82,7 +82,7 @@ There is no workshop required for this chapter, but I recommend creating a build
 
 ### Tips
 
-You can create separate scripts for different platforms, or use a cross-platform scripting language like Python or PowerShell to handle variations. I've prepared two shell scripts as examples: `build.fish` for Linux/macOS and `build.ps1` for Windows.
+You can create separate scripts for different platforms, or use a cross-platform scripting language like **Python** or **PowerShell** to handle variations. I've prepared two shell scripts as examples: `build.fish` for Linux/macOS and `build.ps1` for Windows.
 
 Fish shell is used for Linux/macOS due to its concise syntax and powerful features, while PowerShell is chosen for Windows for its robust scripting capabilities.
 
