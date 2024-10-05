@@ -58,7 +58,7 @@ set(BUILD_SHARED_LIBS TRUE)
 
 Or via the command-line option:
 
-```sh
+```shell
 cmake ... -D BUILD_SHARED_LIBS=TRUE
 ```
 

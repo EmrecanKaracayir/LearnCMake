@@ -23,7 +23,7 @@ CMake uses `CMakeLists.txt` as the primary configuration file to define project 
 
 ### Generating project files
 
-```sh
+```shell
 cmake -G "Ninja" -B build
 ```
 
@@ -44,7 +44,7 @@ cmake -G "Ninja" -B build
 
 ### Running the build
 
-```sh
+```shell
 cmake --build /path/to/build --config Debug --target MyApp
 ```
 

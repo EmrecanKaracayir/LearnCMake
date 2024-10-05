@@ -1,8 +1,8 @@
 # 📖 Chapter 5: Basic Testing And Deployment
 
-## Testing
+### Testing
 
-CMake provides `ctest` for test scheduling and reporting.
+CMake provides CTest for test scheduling and reporting.
 
 **Basic setup:**
 
@@ -35,7 +35,7 @@ ctest
 ```shell
 ctest --build-config Debug
 ```
-**Useful `ctest` options:**
+**Useful CTest options:**
 
 - **`--parallel N`:** Run N tests in parallel
 - **`--verbose`:** Show full output
@@ -65,43 +65,65 @@ install(TARGETS MyApp AlgoRuntime AlgoSDK)
 
 **Running an install:**
 
-```cmake
-cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Debug
+```shell
+cmake -G Ninja -B build -D CMAKE_BUILD_TYPE=Debug
 cd build
 cmake --build .
 cmake --install . --prefix /path/to/somewhere
-For multi-configuration generators:
+```
 
+**For multi-configuration generators:**
+
+```shell
 cmake --install . --config Debug --prefix /path/to/somewhere
-CMake also provides an install build target, but it's less flexible than cmake --install.
-Packaging
-CMake's cpack tool creates binary packages in various formats.
-Basic setup:
+```
 
+CMake also provides an install build target, but it's less flexible than `cmake --install`.
+
+### Packaging
+
+CMake's CPack tool creates binary packages in various formats.
+
+**Basic setup:**
+
+```cmake
 set(CPACK_PACKAGE_NAME MyProj)
 set(CPACK_PACKAGE_VENDOR MyCompany)
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An example project")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CPACK_PACKAGE_NAME})
 set(CPACK_VERBATIM_VARIABLES TRUE)
 include(CPack)
-Creating packages:
+```
 
-cmake -G Ninja -B build -DCMAKE_BUILD_TYPE=Release
+**Creating packages:**
+
+```shell
+cmake -G Ninja -B build -D CMAKE_BUILD_TYPE=Release
 cd build
 cmake --build .
 cpack -G "ZIP;WIX"
-For multi-configuration generators:
+```
 
+**For multi-configuration generators:**
+
+```shell
 cpack -G "ZIP;WIX" --config Release
-CMake provides a package build target, but direct use of cpack is more flexible.
-Recommended Practices
-	1.	Familiarize yourself with ctest and cpack command-line tools
-	2.	Perform test installs to temporary staging areas
-	3.	Avoid direct installs to permanent or system-wide locations
-	4.	Use binary packages for installation when possible
-	5.	For CMake 3.23+, use file sets for header management
-	6.	When using the package build target, set CPACK_GENERATOR based on the platform:
+```
 
+CMake provides a package build target, but direct use of CPack is more flexible.
+
+**Recommended Practices:**
+
+1. Familiarize yourself with CTest and CPack command-line tools
+2. Perform test installs to temporary staging areas
+3. Avoid direct installs to permanent or system-wide locations
+4. Use binary packages for installation when possible
+5. For CMake 3.23+, use file sets for header management
+6. When using the package build target, set `CPACK_GENERATOR` based on the platform:
+
+**Example:**
+
+```cmake
 if(WIN32)
   set(CPACK_GENERATOR ZIP WIX)
 elseif(APPLE)
@@ -111,108 +133,46 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
 else()
   set(CPACK_GENERATOR TGZ)
 endif()
+```
 
 These practices help streamline the testing, installation, and packaging processes, making project deployment more robust and flexible across different platforms and configurations.
 
 # 🎯 Workshop
 
-This workshop focuses on multi-project CMake setup and different dependency types. It is best to create single executable and many libraries. We will use `add_subdirectory()` to include the projects to solution.
-
-### Dependency graph
-
-![Workshop's dependency graph](docs/dependency-graph.png)
-
-The graph shows the dependencies between the projects. The arrows indicate the direction of the dependencies.
-
-There are different types of targets and dependencies:
-
-- `App` is the main executable that depends on `Log`, `Geometry`, and `Statistics`. The dependencies are `PRIVATE` because they are internal to the `App`.
-- `Log` is a library that depends on `IO`. The dependency is `PUBLIC` because `App` also needs `IO`.
-- `Geometry` is a library that depends on `Math`. The dependency is `PRIVATE` because we need to demonstrate the `PRIVATE` dependency.
-- `Statistics` is a library that depends on `Math`. The dependency is `PUBLIC` because we need to demonstrate the `PUBLIC` dependency.
-- `Math` is a header-only library that doesn't have any dependencies. It is an `INTERFACE` library.
+In this workshop we'll use the [Chapter 4's project](../Chapter04/README.md) and add testing and deployment features. The goal is to create passing and failing test, install the project, and create a binary package.
 
 ### Objectives
 
-1. Create a similar multi-project CMake setup like the following structure:
+1. Create `tests` folder with sub-folders for each project.
+2. Add one passing and one failing test for each target.
+3. Create install rules for each target.
+4. Integrate CPack to the project.
+5. Use CTest to run the tests.
+6. Use CPack to create several binary packages.
 
-```plaintext
-┌─📂 build
-│  └─...
-├─📂 cmake
-│  └─📄 language.cmake
-├─📂 projects
-│  ├─📂 App
-│  │  ├─📂 source
-│  │  │  └─📄 main.cpp
-│  │  └─📄 CMakeLists.txt
-│  ├─📂 Geometry
-│  │  ├─📂 include
-│  │  │  └─📂 Geometry
-│  │  │     └─📄 Rectangle.hpp
-│  │  ├─📂 source
-│  │  │  └─📂 Geometry
-│  │  │     └─📄 Rectangle.cpp
-│  │  └─📄 CMakeLists.txt
-│  ├─📂 IO
-│  │  ├─📂 include
-│  │  │  └─📂 IO
-│  │  │     ├─📄 input.hpp
-│  │  │     └─📄 output.hpp
-│  │  └─📄 CMakeLists.txt
-│  ├─📂 Log
-│  │  ├─📂 include
-│  │  │  └─📂 Log
-│  │  │     └─📄 log.hpp
-│  │  ├─📂 source
-│  │  │  └─📂 Log
-│  │  │     └─📄 log.cpp
-│  │  └─📄 CMakeLists.txt
-│  ├─📂 Math
-│  │  ├─📂 include
-│  │  │  └─📂 Math
-│  │  │     ├─📄 addition.hpp
-│  │  │     ├─📄 division.hpp
-│  │  │     ├─📄 multiplication.hpp
-│  │  │     └─📄 subtraction.hpp
-│  │  ├─📂 source
-│  │  │  └─📂 Math
-│  │  │     ├─📄 addition.cpp
-│  │  │     ├─📄 division.cpp
-│  │  │     ├─📄 multiplication.cpp
-│  │  │     └─📄 subtraction.cpp
-│  │  └─📄 CMakeLists.txt
-│  └─📂 Statistics
-│     ├─📂 include
-│     │  └─📂 Statistics
-│     │     └─📄 average.hpp
-│     ├─📂 source
-│     │  └─📂 Statistics
-│     │     └─📄 average.cpp
-│     └─📄 CMakeLists.txt
-├─📂 tools
-│  ├─📄 build.fish
-│  └─📄 build.ps1
-└─📄 CMakeLists.txt
-```
+#### Example install process
 
-2. Define the projects in the project's `CMakeLists.txt` file.
-3. Include the projects in the top-level `CMakeLists.txt` file via `add_subdirectory()`.
-4. Link the targets with different dependency types.
+![Install command](docs/install-command.png)
 
-#### Example C++ code
+![Install result](docs/install-result.png)
 
-![Example C++ code](docs/example-code.png)
+#### Example test process
 
-#### Example output
+![Test command](docs/test-command.png)
 
-![Example output](docs/example-output.png)
+#### Example package process
+
+![Package command](docs/package-command.png)
+
+![Package result](docs/package-result.png)
 
 ### Tips
 
-- Use `add_subdirectory()` to include projects in the top-level `CMakeLists.txt`.
-- Use `target_sources()` to add source files to the targets.
-- Use `target_link_libraries()` to link the targets with the correct dependency types.
-- Use `PRIVATE`, `PUBLIC`, or `INTERFACE` in `target_link_libraries()` to define the dependencies.
-- Refer to **remark** for the explanation of `PRIVATE`, `PUBLIC`, and `INTERFACE` dependencies.
-- If you encounter issues, refer to the [CMake documentation](https://cmake.org/documentation/) or the provided solutions
+- Use `add_test()` to define test cases.
+- Use `install()` to manage deployment.
+- Use `set(CPACK...)` variables to configure CPack.
+- Use `ctest` to run tests.
+- Use `cpack` to create binary packages.
+- `cpack` command only works in the build directory.
+- Super user permissions may be required, use `sudo` or equivalent if needed.
+- Inspect my solution for reference and guidance.

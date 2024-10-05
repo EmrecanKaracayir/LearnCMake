@@ -8,11 +8,11 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 
 ## Workshops
 
-- **[Chapter 01:](./Chapter01/)** Introduction
-- **[Chapter 02:](./Chapter02/)** Setting Up A Project
-- **[Chapter 03:](./Chapter03/)** A Minimal Project
-- **[Chapter 04:](./Chapter04/)** Building Simple Targets
-- **[Chapter 05:](./Chapter05/)** Basic Testing And Deployment
+- **[Chapter 01:](./Chapter01/README.md)** Introduction
+- **[Chapter 02:](./Chapter02/README.md)** Setting Up A Project
+- **[Chapter 03:](./Chapter03/README.md)** A Minimal Project
+- **[Chapter 04:](./Chapter04/README.md)** Building Simple Targets
+- **[Chapter 05:](./Chapter05/README.md)** Basic Testing And Deployment
 
 ## How to use this repository?
 
@@ -49,7 +49,7 @@ For each chapter:
 Each workshop can be built using the provided build scripts:
 
 - On Linux or macOS:
-  ```sh
+  ```shell
   ./tools/build.fish
   ```
 - On Windows:
@@ -58,7 +58,7 @@ Each workshop can be built using the provided build scripts:
   ```
   Workshops can also be built using standard CMake commands:
 
-```sh
+```shell
 mkdir build
 cd build
 cmake ..
