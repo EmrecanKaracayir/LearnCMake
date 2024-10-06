@@ -1,6 +1,7 @@
 # 📖 Chapter 4: Building Simple Targets
 
-This chapter covers the basics of building simple targets with CMake. You'll learn how to define executables and libraries, link them together, and set up dependencies between targets.
+This is an overview of Chapter 4, covering the key concepts of building executables and libraries, linking targets, and recommended practices in CMake. It includes examples and explanations of the various options and commands discussed in the chapter.
+
 
 ### Executables
 

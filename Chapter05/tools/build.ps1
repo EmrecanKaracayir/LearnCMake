@@ -198,7 +198,7 @@ function script:Verify
   {
     script:Print 0 "WARNING" "CMake is not installed. To install it:"
     script:Print 1 "DIMMED" "Windows > winget install --id=Kitware.CMake --exact"
-    script:Print 1 "DIMMED" "macOS   > brew install cmake"
+    script:Print 1 "DIMMED" "macOS   > brew install --cask cmake"
     script:Print 1 "DIMMED" "Linux   > Use your distribution's package manager."
 
     # Fail the check

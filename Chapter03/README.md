@@ -1,5 +1,9 @@
 # 📖 Chapter 3: A Minimal Project
 
+This is an overview of Chapter 3, which covers the basics of setting up a minimal CMake project. It includes a breakdown of the `CMakeLists.txt` file, CMake commands, and recommended practices for project organization.
+
+### `CMakeLists.txt` file
+
 `CMakeLists.txt` is the foundation of every CMake project:
 
 - Must be located at the top of the source tree
@@ -8,7 +12,7 @@
 - Uses CMake's own language, which includes familiar programming concepts:
   - Variables, functions, macros, conditional logic, looping, and comments
 
-### Minimal `CMakeLists.txt` example
+#### Minimal `CMakeLists.txt` example
 
 ```cmake
 cmake_minimum_required(VERSION 3.2)
@@ -23,7 +27,7 @@ add_executable(MyExe "main.cpp")
 - Arguments are separated by spaces and can span multiple lines
 - Don't return values directly, but can pass values back in other ways (covered in later chapters)
 
-### Example of multi-line command
+#### Example of multi-line command
 
 ```cmake
 add_executable(
@@ -105,7 +109,7 @@ add_executable(targetName source1 [source2 ...])
   - Number of `=` characters can vary, but must match at start and end
 - Useful for temporarily commenting out blocks of code
 
-### Example with comments
+#### Example with comments
 
 ```cmake
 cmake_minimum_required(VERSION 3.2)

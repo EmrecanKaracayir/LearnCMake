@@ -169,7 +169,7 @@ function verify
     else
         print 0 WARNING "CMake is not installed. To install it:"
         print 1 DIMMED "Windows > winget install --id=Kitware.CMake --exact"
-        print 1 DIMMED "macOS   > brew install cmake"
+        print 1 DIMMED "macOS   > brew install --cask cmake"
         print 1 DIMMED "Linux   > Use your distribution's package manager."
 
         # Fail the check

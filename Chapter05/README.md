@@ -1,5 +1,7 @@
 # 📖 Chapter 5: Basic Testing And Deployment
 
+This is an overview of Chapter 5, covering the key concepts of testing, installing, and packaging in CMake. It includes examples and explanations of the various commands and best practices discussed in the chapter.
+
 ### Testing
 
 CMake provides CTest for test scheduling and reporting.

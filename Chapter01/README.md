@@ -1,5 +1,9 @@
 # 📖 Chapter 1: Introduction
 
+This is an overview of Chapter 1, which introduces CMake and its role in the software development process. It covers the basics of CMake, its components, and the workflow it follows.
+
+### What is CMake?
+
 CMake is a suite of tools designed to simplify the complex software development process, especially for multi-platform projects. It manages the entire build process from setup to packaging, supporting various platforms, tools, and languages.
 
 ### The CMake workflow
@@ -17,7 +21,7 @@ CMake abstracts platform differences, making cross-platform development more man
 > **Remark:** I've found these are the best ways to install CMake on different platforms:
 >
 > - **Linux:** Use the package manager for your distribution.
-> - **macOS:** Use [Homebrew](https://brew.sh/): `brew install cmake`
+> - **macOS:** Use [Homebrew](https://brew.sh/): `brew install --cask cmake`
 > - **Windows:** Use [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/): `winget install --id=Kitware.CMake --exact`
 
 Resources include official CMake documentation and the CMake forum for community support.

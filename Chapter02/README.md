@@ -1,5 +1,9 @@
 # 📖 Chapter 2: Setting Up A Project
 
+This is an overview of Chapter 2, which covers the essential steps for setting up a CMake project. It includes an introduction to CMake, project structure, build approaches, and best practices for project organization.
+
+### CMake project structure
+
 CMake uses `CMakeLists.txt` as the primary configuration file to define project structure, build processes, tests, and packaging. This human-readable file serves as a platform-independent description of the entire project, which CMake then translates into platform-specific build tool project files.
 
 **CMake operates with two key directories:**
