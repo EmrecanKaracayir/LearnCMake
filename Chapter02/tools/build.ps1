@@ -14,7 +14,7 @@ param (
   [switch] $Build = $false,
 
   [Alias("c")]
-  [switch] $Customize = $false
+  [switch] $Customize = $false,
 
   [Alias("f")]
   [switch] $Fresh = $false
