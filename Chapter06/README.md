@@ -1,4 +1,6 @@
-# 📖 Chapter 6:Variables
+# 📖 Chapter 6: Variables
+
+This is an overview of Chapter 6, covering the key concepts of variables in CMake. It includes examples and explanations of the various commands and best practices discussed in the chapter.
 
 ### Variable Basics
 

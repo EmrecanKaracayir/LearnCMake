@@ -24,8 +24,7 @@ install(TARGETS Statistics FILE_SET api)
 
 # >----------< TESTING >-------------------------------------------------------------------------< #
 
-if (UNIX)
-
+if(UNIX)
   # Passing test
   add_test(
     NAME PassingTest
@@ -37,19 +36,15 @@ if (UNIX)
     NAME FailingTest
     COMMAND "${CMAKE_SOURCE_DIR}/tests/Statistics/failing.fish"
   )
-
-else ()
-
+else()
   # Passing test
   add_test(
     NAME PassingTest
     COMMAND "${CMAKE_SOURCE_DIR}/tests/Statistics/passing.ps1"
   )
-
   # Failing test
   add_test(
     NAME FailingTest
     COMMAND "${CMAKE_SOURCE_DIR}/tests/Statistics/failing.ps1"
   )
-
-endif (UNIX)
+endif(UNIX)

@@ -18,11 +18,12 @@ set PROJECT_NAME (basename $PROJECT_DIR)
 set GENERATE 1
 set BUILD 1
 set CUSTOMIZE 0
+set FRESH 0
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Functions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
 
 function arguments
-    set --local options h/help v/version g/only-generate b/only-build c/customize
+    set --local options h/help v/version g/generate b/build c/customize f/fresh
 
     # Parse the script arguments
     if not argparse --name $SCRIPT_NAME $options -- $argv
@@ -42,6 +43,7 @@ function arguments
         print 1 DIMMED "-g, --generate  = Generates the build system only."
         print 1 DIMMED "-b, --build     = Builds the project only."
         print 1 DIMMED "-c, --customize = Enables custom configurations."
+        print 1 DIMMED "-f, --fresh     = Cleans up the cache before generating."
         exit 0
     end
 
@@ -52,18 +54,23 @@ function arguments
     end
 
     # Handle --generate
-    if set --query _flag_only_generate
+    if set --query _flag_generate
         set BUILD 0
     end
 
     # Handle --build
-    if set --query _flag_only_build
+    if set --query _flag_build
         set GENERATE 0
     end
 
     # Handle --customize
     if set --query _flag_customize
         set CUSTOMIZE 1
+    end
+
+    # Handle --fresh
+    if set --query _flag_fresh
+        set FRESH 1
     end
 end
 
@@ -190,13 +197,15 @@ function generate
     print 0 DEFAULT "Generates the build files for the project."
 
     # Handle cache
-    print 0 LOADING "Checking the cache..."
-    if test -e $PROJECT_DIR/build/CMakeCache.txt
-        print 0 LOADING "Cache found, cleaning up..."
-        rm -rf $PROJECT_DIR/build/*
-        print 0 INFORMATION "Cache cleaned up."
-    else
-        print 0 INFORMATION "No cache found."
+    if test $FRESH -eq 1
+        print 0 LOADING "Checking the cache..."
+        if test -e $PROJECT_DIR/build/CMakeCache.txt
+            print 0 LOADING "Cache found, cleaning up..."
+            rm -rf $PROJECT_DIR/build/*
+            print 0 INFORMATION "Cache cleaned up."
+        else
+            print 0 INFORMATION "No cache found."
+        end
     end
 
     # Handle custom configurations

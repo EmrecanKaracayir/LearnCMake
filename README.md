@@ -13,6 +13,8 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 03:](./Chapter03/README.md)** A Minimal Project
 - **[Chapter 04:](./Chapter04/README.md)** Building Simple Targets
 - **[Chapter 05:](./Chapter05/README.md)** Basic Testing And Deployment
+- **[Chapter 06:](./Chapter06/README.md)** Variables
+- **[Chapter 07:](./Chapter07/README.md)** Flow Control
 
 ## How to use this repository?
 

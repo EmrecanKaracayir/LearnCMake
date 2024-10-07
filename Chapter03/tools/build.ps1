@@ -15,6 +15,9 @@ param (
 
   [Alias("c")]
   [switch] $Customize = $false
+
+  [Alias("f")]
+  [switch] $Fresh = $false
 )
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Setup >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
@@ -35,6 +38,7 @@ $script:PROJECT_NAME = (Get-Item $script:PROJECT_DIR).Name
 $script:WILL_GENERATE = $true
 $script:WILL_BUILD = $true
 $script:WILL_CUSTOMIZE = $false
+$script:IS_FRESH = $false
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Functions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
 
@@ -53,6 +57,7 @@ function script:Arguments
     script:Print 1 "DIMMED" "-g, -Generate  = Generates the build system only."
     script:Print 1 "DIMMED" "-b, -Build     = Builds the project only."
     script:Print 1 "DIMMED" "-c, -Customize = Enables custom configurations."
+    script:Print 1 "DIMMED" "-f, -Fresh     = Cleans up the cache before generating."
     exit 0
   }
 
@@ -79,6 +84,12 @@ function script:Arguments
   if ($Customize)
   {
     $script:WILL_CUSTOMIZE = $true
+  }
+
+  # Handle -Refresh
+  if ($Fresh)
+  {
+    $script:IS_FRESH = $true
   }
 }
 
@@ -223,16 +234,19 @@ function script:Generate
   script:Print 0 "DEFAULT" "Generates the build files for the project."
 
   # Handle cache
-  script:Print 0 "LOADING" "Checking the cache..."
-  if (Test-Path "$script:PROJECT_DIR\build\CMakeCache.txt")
+  if ($script:IS_FRESH -eq $true)
   {
-    script:Print 0 "LOADING" "Cache found, cleaning up..."
-    Remove-Item -Path "$script:PROJECT_DIR\build\*" -Recurse -Force
-    script:Print 0 "INFORMATION" "Cache cleaned up."
-  }
-  else
-  {
-    script:Print 0 "INFORMATION" "No cache found."
+    script:Print 0 "LOADING" "Checking the cache..."
+    if (Test-Path "$script:PROJECT_DIR\build\CMakeCache.txt")
+    {
+      script:Print 0 "LOADING" "Cache found, cleaning up..."
+      Remove-Item -Path "$script:PROJECT_DIR\build\*" -Recurse -Force
+      script:Print 0 "INFORMATION" "Cache cleaned up."
+    }
+    else
+    {
+      script:Print 0 "INFORMATION" "No cache found."
+    }
   }
 
   # Handle custom configurations

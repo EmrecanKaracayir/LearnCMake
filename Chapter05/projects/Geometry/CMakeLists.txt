@@ -24,8 +24,7 @@ install(TARGETS Geometry FILE_SET api)
 
 # >----------< TESTING >-------------------------------------------------------------------------< #
 
-if (UNIX)
-
+if(UNIX)
   # Passing test
   add_test(
     NAME PassingTest
@@ -37,9 +36,7 @@ if (UNIX)
     NAME FailingTest
     COMMAND "${CMAKE_SOURCE_DIR}/tests/Geometry/failing.fish"
   )
-
-else ()
-
+else()
   # Passing test
   add_test(
     NAME PassingTest
@@ -51,5 +48,4 @@ else ()
     NAME FailingTest
     COMMAND "${CMAKE_SOURCE_DIR}/tests/Geometry/failing.ps1"
   )
-
-endif (UNIX)
+endif(UNIX)
