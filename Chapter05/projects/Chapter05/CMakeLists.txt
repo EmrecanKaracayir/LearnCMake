@@ -24,28 +24,28 @@ install(TARGETS Chapter05)
 
 # >----------< TESTING >-------------------------------------------------------------------------< #
 
-if(UNIX)
+if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
     NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Chapter05/passing.fish"
-  )
-  
-  # Failing test
-  add_test(
-    NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Chapter05/failing.fish"
-  )
-else()
-  # Passing test
-  add_test(
-    NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Chapter05/passing.ps1"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Chapter05/passing.fish"
   )
 
   # Failing test
   add_test(
     NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Chapter05/failing.ps1"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Chapter05/failing.fish"
   )
-endif(UNIX)
+else()
+  # Passing test
+  add_test(
+    NAME PassingTest
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Chapter05/passing.ps1"
+  )
+
+  # Failing test
+  add_test(
+    NAME FailingTest
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Chapter05/failing.ps1"
+  )
+endif()

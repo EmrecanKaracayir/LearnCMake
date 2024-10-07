@@ -24,28 +24,28 @@ install(TARGETS Log FILE_SET api)
 
 # >----------< TESTING >-------------------------------------------------------------------------< #
 
-if(UNIX)
+if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
     NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Log/passing.fish"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Log/passing.fish"
   )
 
   # Failing test
   add_test(
     NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Log/failing.fish"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Log/failing.fish"
   )
 else()
   # Passing test
   add_test(
     NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Log/passing.ps1"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Log/passing.ps1"
   )
 
   # Failing test
   add_test(
     NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Log/failing.ps1"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Log/failing.ps1"
   )
-endif(UNIX)
+endif()

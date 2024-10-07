@@ -15,6 +15,7 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 05:](./Chapter05/README.md)** Basic Testing And Deployment
 - **[Chapter 06:](./Chapter06/README.md)** Variables
 - **[Chapter 07:](./Chapter07/README.md)** Flow Control
+- **[Chapter 08:](./Chapter08/README.md)** Using Subdirectories
 
 ## How to use this repository?
 

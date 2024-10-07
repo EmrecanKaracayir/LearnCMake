@@ -90,7 +90,7 @@ foreach(loopVar arg1 arg2 ...)
 endforeach()
 ```
 
-**_General form:_**
+**General form:**
 
 ```cmake
 foreach(loopVar IN [LISTS listVar1 ...] [ITEMS item1 ...])

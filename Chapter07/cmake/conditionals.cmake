@@ -338,19 +338,19 @@ endif()
 # Some examples
 message("\n[Some examples]")
 
-if(WIN32)
+if(CMAKE_HOST_WIN32)
   message("  Running on Windows")
 else()
   message("  Not running on Windows")
 endif()
 
-if(APPLE)
+if(CMAKE_HOST_APPLE)
   message("  Running on macOS")
 else()
   message("  Not running on macOS")
 endif()
 
-if(UNIX)
+if(CMAKE_HOST_UNIX)
   message("  Running on Unix")
 else()
   message("  Not running on Unix")

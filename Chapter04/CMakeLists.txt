@@ -8,7 +8,7 @@ project(SLN_Chapter04 VERSION 1.0.0 LANGUAGES CXX)
 
 # >----------< INCLUDES >------------------------------------------------------------------------< #
 
-include("${CMAKE_SOURCE_DIR}/cmake/language.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/language.cmake")
 
 # >----------< PROJECTS >------------------------------------------------------------------------< #
 

@@ -28,28 +28,28 @@ install(TARGETS Math FILE_SET api)
 
 # >----------< TESTING >-------------------------------------------------------------------------< #
 
-if(UNIX)
+if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
     NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Math/passing.fish"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Math/passing.fish"
   )
 
   # Failing test
   add_test(
     NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Math/failing.fish"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Math/failing.fish"
   )
 else()
   # Passing test
   add_test(
     NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Math/passing.ps1"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Math/passing.ps1"
   )
 
   # Failing test
   add_test(
     NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/Math/failing.ps1"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Math/failing.ps1"
   )
-endif(UNIX)
+endif()

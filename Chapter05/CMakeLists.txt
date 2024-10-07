@@ -10,7 +10,7 @@ enable_testing()
 
 # >----------< INCLUDES >------------------------------------------------------------------------< #
 
-include("${CMAKE_SOURCE_DIR}/cmake/language.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/language.cmake")
 
 # >----------< PROJECTS >------------------------------------------------------------------------< #
 

@@ -21,28 +21,28 @@ install(TARGETS IO FILE_SET api)
 
 # >----------< TESTING >-------------------------------------------------------------------------< #
 
-if(UNIX)
+if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
     NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/IO/passing.fish"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/IO/passing.fish"
   )
 
   # Failing test
   add_test(
     NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/IO/failing.fish"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/IO/failing.fish"
   )
 else()
   # Passing test
   add_test(
     NAME PassingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/IO/passing.ps1"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/IO/passing.ps1"
   )
 
   # Failing test
   add_test(
     NAME FailingTest
-    COMMAND "${CMAKE_SOURCE_DIR}/tests/IO/failing.ps1"
+    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/IO/failing.ps1"
   )
-endif(UNIX)
+endif()
