@@ -17,6 +17,7 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 07:](./Chapter07/README.md)** Flow Control
 - **[Chapter 08:](./Chapter08/README.md)** Using Subdirectories
 - **[Chapter 09:](./Chapter09/README.md)** Functions And Macros
+- **[Chapter 10:](./Chapter10/README.md)** Properties
 
 ## How to use this repository?
 
@@ -61,13 +62,12 @@ Each workshop can be built using the provided build scripts:
   .\tools\build.ps1
   ```
   Workshops can also be built using standard CMake commands:
-
-```shell
-mkdir build
-cd build
-cmake ..
-cmake --build .
-```
+  ```shell
+  mkdir build
+  cd build
+  cmake ..
+  cmake --build .
+  ```
 
 Specific build instructions, if different, will be provided in the chapter's README.
 
