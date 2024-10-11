@@ -16,6 +16,7 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 06:](./Chapter06/README.md)** Variables
 - **[Chapter 07:](./Chapter07/README.md)** Flow Control
 - **[Chapter 08:](./Chapter08/README.md)** Using Subdirectories
+- **[Chapter 09:](./Chapter09/README.md)** Functions And Macros
 
 ## How to use this repository?
 
