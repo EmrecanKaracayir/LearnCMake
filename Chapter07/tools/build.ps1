@@ -236,17 +236,9 @@ function script:Generate
   # Handle cache
   if ($script:IS_FRESH -eq $true)
   {
-    script:Print 0 "LOADING" "Checking the cache..."
-    if (Test-Path "$script:PROJECT_DIR\build\CMakeCache.txt")
-    {
-      script:Print 0 "LOADING" "Cache found, cleaning up..."
-      Remove-Item -Path "$script:PROJECT_DIR\build\*" -Recurse -Force
-      script:Print 0 "INFORMATION" "Cache cleaned up."
-    }
-    else
-    {
-      script:Print 0 "INFORMATION" "No cache found."
-    }
+    script:Print 0 "LOADING" "Cleaning up the cache..."
+    Remove-Item -Path "$script:PROJECT_DIR\build\*" -Recurse -Force
+    script:Print 0 "INFORMATION" "Cache cleaned up."
   }
 
   # Handle custom configurations

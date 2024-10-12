@@ -61,13 +61,15 @@ Each workshop can be built using the provided build scripts:
   ```PowerShell
   .\tools\build.ps1
   ```
-  Workshops can also be built using standard CMake commands:
-  ```shell
-  mkdir build
-  cd build
-  cmake ..
-  cmake --build .
-  ```
+
+Workshops can also be built using standard CMake commands:
+
+```shell
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
 
 Specific build instructions, if different, will be provided in the chapter's README.
 

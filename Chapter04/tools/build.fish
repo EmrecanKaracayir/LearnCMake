@@ -198,14 +198,9 @@ function generate
 
     # Handle cache
     if test $FRESH -eq 1
-        print 0 LOADING "Checking the cache..."
-        if test -e $PROJECT_DIR/build/CMakeCache.txt
-            print 0 LOADING "Cache found, cleaning up..."
-            rm -rf $PROJECT_DIR/build/*
-            print 0 INFORMATION "Cache cleaned up."
-        else
-            print 0 INFORMATION "No cache found."
-        end
+        print 0 LOADING "Cleaning up the cache..."
+        rm -rf $PROJECT_DIR/build
+        print 0 INFORMATION "Cache cleaned up."
     end
 
     # Handle custom configurations
