@@ -4,7 +4,7 @@ project(PRJ_Statistics)
 
 # >----------< TARGET : Statistics >-------------------------------------------------------------< #
 
-add_library(Statistics)
+add_library(Statistics SHARED)
 
 target_sources(
   Statistics
@@ -19,6 +19,16 @@ target_sources(
 )
 
 target_link_libraries(Statistics PUBLIC Math)
+
+message("\n[Properties | TARGET : Statistics]")
+set_target_properties(
+  Statistics
+  PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${SLN_Chapter10_BINARY_DIR}/out/bin"
+    ARCHIVE_OUTPUT_DIRECTORY "${SLN_Chapter10_BINARY_DIR}/out/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${SLN_Chapter10_BINARY_DIR}/out/lib"
+)
+message("  Set output directories: ${SLN_Chapter10_BINARY_DIR}/out/{bin,lib}")
 
 install(TARGETS Statistics FILE_SET api)
 
