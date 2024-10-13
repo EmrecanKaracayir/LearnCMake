@@ -19,6 +19,7 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 09:](./Chapter09/README.md)** Functions And Macros
 - **[Chapter 10:](./Chapter10/README.md)** Properties
 - **[Chapter 11:](./Chapter11/README.md)** Generator Expressions
+- **[Chapter 12:](./Chapter12/README.md)** Modules
 
 ## How to use this repository?
 
