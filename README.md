@@ -6,7 +6,7 @@ Workshops include custom projects and exercises to practice the concepts learned
 
 Each chapter from the book will have a corresponding workshop as a CMake project.
 
-## Workshops
+## 🎯 Workshops
 
 - **[Chapter 01:](./Chapter01/README.md)** Introduction
 - **[Chapter 02:](./Chapter02/README.md)** Setting Up A Project
@@ -21,7 +21,7 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 11:](./Chapter11/README.md)** Generator Expressions
 - **[Chapter 12:](./Chapter12/README.md)** Modules
 
-## How to use this repository?
+## ❓ How to use this repository?
 
 ### 📋 Prerequisites
 
