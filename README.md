@@ -18,6 +18,7 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 08:](./Chapter08/README.md)** Using Subdirectories
 - **[Chapter 09:](./Chapter09/README.md)** Functions And Macros
 - **[Chapter 10:](./Chapter10/README.md)** Properties
+- **[Chapter 11:](./Chapter11/README.md)** Generator Expressions
 
 ## How to use this repository?
 
@@ -52,6 +53,8 @@ For each chapter:
 ### 🔨 Building the projects
 
 Each workshop can be built using the provided build scripts:
+
+> **Remark:** The build scripts are written in Fish shell for Linux/macOS and PowerShell for Windows.
 
 - On Linux or macOS:
   ```shell
