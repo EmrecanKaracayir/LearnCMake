@@ -20,6 +20,7 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 10:](./Chapter10/README.md)** Properties
 - **[Chapter 11:](./Chapter11/README.md)** Generator Expressions
 - **[Chapter 12:](./Chapter12/README.md)** Modules
+- **[Chapter 13:](./Chapter13/README.md)** Policies
 
 ## ❓ How to use this repository?
 
