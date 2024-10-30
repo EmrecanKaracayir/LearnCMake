@@ -1,6 +1,6 @@
 # >----------< PROJECT : Math >------------------------------------------------------------------< #
 
-project(PRJ_Math)
+project(PMath VERSION ${SChapter10_VERSION} LANGUAGES CXX)
 
 # >----------< Target : Math >-------------------------------------------------------------------< #
 
@@ -28,11 +28,11 @@ message("\n[Properties | TARGET : Math]")
 set_target_properties(
   Math
   PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${SLN_Chapter10_BINARY_DIR}/out/bin"
-    ARCHIVE_OUTPUT_DIRECTORY "${SLN_Chapter10_BINARY_DIR}/out/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${SLN_Chapter10_BINARY_DIR}/out/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${SChapter10_BINARY_DIR}/out/bin"
+    ARCHIVE_OUTPUT_DIRECTORY "${SChapter10_BINARY_DIR}/out/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${SChapter10_BINARY_DIR}/out/lib"
 )
-message("  Set output directories: ${SLN_Chapter10_BINARY_DIR}/out/{bin,lib}")
+message("  Set output directories: ${SChapter10_BINARY_DIR}/out/{bin,lib}")
 
 install(TARGETS Math FILE_SET api)
 
@@ -45,32 +45,30 @@ include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/sources.cmake")
 if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
-    NAME PRJ_Math_PassingTest
-    COMMAND "${SLN_Chapter10_SOURCE_DIR}/tests/Math/passing.fish"
+    NAME PMath_TPassing
+    COMMAND "${SChapter10_SOURCE_DIR}/tests/Math/passing.fish"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Math_FailingTest
-    COMMAND "${SLN_Chapter10_SOURCE_DIR}/tests/Math/failing.fish"
+    NAME PMath_TFailing
+    COMMAND "${SChapter10_SOURCE_DIR}/tests/Math/failing.fish"
   )
 else()
   # Passing test
   add_test(
-    NAME PRJ_Math_PassingTest
-    COMMAND "${SLN_Chapter10_SOURCE_DIR}/tests/Math/passing.ps1"
+    NAME PMath_TPassing
+    COMMAND "${SChapter10_SOURCE_DIR}/tests/Math/passing.ps1"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Math_FailingTest
-    COMMAND "${SLN_Chapter10_SOURCE_DIR}/tests/Math/failing.ps1"
+    NAME PMath_TFailing
+    COMMAND "${SChapter10_SOURCE_DIR}/tests/Math/failing.ps1"
   )
 endif()
 
-message("\n[Properties | TEST : PRJ_Math_FailingTest]")
+message("\n[Properties | TEST : PMath_TFailing]")
 set_tests_properties(
-  PRJ_Math_FailingTest
+  PMath_TFailing
   PROPERTIES
     DISABLED TRUE
 )

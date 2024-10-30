@@ -38,7 +38,7 @@ Argument handling is a crucial aspect of functions and macros. CMake provides va
 **Example:**
 
 ```cmake
-function(add_mytest targetName)
+function(addMyTest targetName)
   add_executable(${targetName} ${ARGN})
   target_link_libraries(${targetName} PRIVATE foobar)
   add_test(NAME ${targetName} COMMAND ${targetName})
@@ -66,13 +66,13 @@ function(func)
   set(multiValues SOURCES IMAGES)
 
   cmake_parse_arguments(
-    arg
+    ARG
     "${noValues}" "${singleValues}" "${multiValues}"
     ${ARGN}
   )
 
   # Use parsed arguments
-  if(arg_ENABLE_NET)
+  if(ARG_ENABLE_NET)
     # ...
   endif()
   # ...
@@ -83,7 +83,7 @@ There is another way to handle keyword arguments using `cmake_parse_arguments()`
 
 ```cmake
 cmake_parse_arguments(
-  PARSE_ARGV 0 arg
+  PARSE_ARGV 0 ARG
   "${noValues}" "${singleValues}" "${multiValues}"
 )
 ```
@@ -238,28 +238,28 @@ In this workshop, you will create a new project with a `CMakeLists.txt` file and
 | FUNCTIONS |
 *-----------*
 
-[Function | print_hello_world()]
+[Function | printHelloWorld()]
   Arguments:
     ARGC = 0
     ARGV =
     ARGN =
   Hello, World!
 
-[Function | print_hello(SUBJECT)]
+[Function | printHello(subject)]
   Arguments:
     ARGC = 1
     ARGV = CMake
     ARGN =
   Hello, CMake!
 
-[Function | log(LEVEL MESSAGE)]
+[Function | log(level message)]
   Arguments:
     ARGC = 2
     ARGV = ERROR;Something went wrong!
     ARGN =
   [ERROR] | Something went wrong!
 
-[Function | log(LEVEL MESSAGE)]
+[Function | log(level message)]
   Arguments:
     ARGC = 3
     ARGV = ERROR;Some other thing went wrong!;Some extra information.
@@ -272,9 +272,9 @@ In this workshop, you will create a new project with a `CMakeLists.txt` file and
     ARGC = 7
     ARGV = NOW;PAY_WITH;debit card;THINGS;apples;bananas;oranges
     ARGN = NOW;PAY_WITH;debit card;THINGS;apples;bananas;oranges
-[i]: Setting NO_VALUE_ARGS to NOW
-[i]: Setting ONE_VALUE_ARGS to PAY_WITH
-[i]: Setting MULTI_VALUE_ARGS to THINGS
+[i]: Setting noValueArgs to NOW
+[i]: Setting oneValueArgs to PAY_WITH
+[i]: Setting multiValueArgs to THINGS
   Going shopping now!
   Paying with: debit card
   Buying things:
@@ -287,40 +287,40 @@ In this workshop, you will create a new project with a `CMakeLists.txt` file and
     ARGC = 6
     ARGV = PAY_WITH;credit card;THINGS;grapes;kiwi;lemon
     ARGN = PAY_WITH;credit card;THINGS;grapes;kiwi;lemon
-[i]: Setting NO_VALUE_ARGS to NOW
-[i]: Setting ONE_VALUE_ARGS to PAY_WITH
-[i]: Setting MULTI_VALUE_ARGS to THINGS
+[i]: Setting noValueArgs to NOW
+[i]: Setting oneValueArgs to PAY_WITH
+[i]: Setting multiValueArgs to THINGS
   Going shopping later!
   Paying with: credit card
   Buying things:
     - grapes
     - kiwi
     - lemon
-[i]: Setting CH09_FUN_VAR to value
+[i]: Setting fnc_var to value
 
-[Function | print_variable(VARIABLE)]
+[Function | printVariable(variable)]
   Arguments:
     ARGC = 1
-    ARGV = CH09_FUN_VAR
+    ARGV = fnc_var
     ARGN =
-  VARIABLE: value
+  variable: value
 
-Before calling create_dice(): CH09_FUN_LST_DICE =
-[Function | create_dice(LST_DICE)]
+Before calling createDice(): fnc_dice =
+[Function | createDice(fnc_dice)]
   Arguments:
     ARGC = 1
-    ARGV = CH09_FUN_LST_DICE
+    ARGV = fnc_dice
     ARGN =
-[i]: Setting CH09_FUN_LST_DICE to 1;2;3;4;5;6
-After calling create_dice(): CH09_FUN_LST_DICE = 1;2;3;4;5;6
+[i]: Setting fnc_dice to 1;2;3;4;5;6
+After calling create_dice(): fnc_dice = 1;2;3;4;5;6
 
-Before calling modify_dice(): CH09_FUN_LST_DICE = 1;2;3;4;5;6
-[Function | modify_dice()]
+Before calling modifyDice(): fnc_dice = 1;2;3;4;5;6
+[Function | modifyDice()]
   Arguments:
     ARGC = 0
     ARGV =
     ARGN =
-After calling modify_dice(): CH09_FUN_LST_DICE = 6;5;4;3;2;1
+After calling modify_dice(): fnc_dice = 6;5;4;3;2;1
 
 [Function | current()]
   Arguments:
@@ -329,18 +329,18 @@ After calling modify_dice(): CH09_FUN_LST_DICE = 6;5;4;3;2;1
     ARGN =
   CMAKE_CURRENT_FUNCTION: current
   CMAKE_CURRENT_LIST_DIR: /Users/Emrecan/Developer/Repositories/github.com/EmrecanKaracayir/LearnCMake/Chapter09/cmake
-  CMAKE_CURRENT_FUNCTION_LIST_FILE: /Users/Emrecan/Developer/Repositories/github.com/EmrecanKaracayir/LearnCMake/Chapter09/cmake/functions.cmake
+  CMAKE_CURRENT_FUNCTION_LIST_FILE: /Users/Emrecan/Developer/Repositories/github.com/EmrecanKaracayir/LearnCMake/Chapter09/cmake/Functions.cmake
   CMAKE_CURRENT_FUNCTION_LIST_LINE: 105
 
-[Function | outer_function()]
+[Function | outerFunction()]
   Arguments:
     ARGC = 3
     ARGV = a;b;c;1;2;3;x;y;z
     ARGN = a;b;c;1;2;3;x;y;z
-[i]: Setting ARGS to
+[i]: Setting args to
   Forwarding arguments:  [==[a;b;c]==] [==[1;2;3]==] [==[x;y;z]==]
 
-[Function | inner_function()]
+[Function | innerFunction()]
   Arguments:
     ARGC = 3
     ARGV = a;b;c;1;2;3;x;y;z
@@ -357,21 +357,21 @@ After calling modify_dice(): CH09_FUN_LST_DICE = 6;5;4;3;2;1
     ARGN =
   Hello, World!
 
-[Macro | PRINT_HELLO(SUBJECT)]
+[Macro | PRINT_HELLO(subject)]
   Arguments:
     ARGC = 1
     ARGV = CMake
     ARGN =
   Hello, CMake!
 
-[Macro | LOG(LEVEL MESSAGE)]
+[Macro | LOG(level message)]
   Arguments:
     ARGC = 2
     ARGV = ERROR;Something went wrong!
     ARGN =
   [ERROR] | Something went wrong!
 
-[Macro | LOG(LEVEL MESSAGE)]
+[Macro | LOG(level message)]
   Arguments:
     ARGC = 3
     ARGV = ERROR;Some other thing went wrong!;Some extra information.
@@ -384,9 +384,9 @@ After calling modify_dice(): CH09_FUN_LST_DICE = 6;5;4;3;2;1
     ARGC = 7
     ARGV = NOW;PAY_WITH;debit card;THINGS;apple;banana;cherry
     ARGN = NOW;PAY_WITH;debit card;THINGS;apple;banana;cherry
-[i]: Setting NO_VALUE_ARGS to NOW
-[i]: Setting ONE_VALUE_ARGS to PAY_WITH
-[i]: Setting MULTI_VALUE_ARGS to THINGS
+[i]: Setting noValueArgs to NOW
+[i]: Setting oneValueArgs to PAY_WITH
+[i]: Setting multiValueArgs to THINGS
   Going shopping now!
   Paying with: debit card
   Buying things:
@@ -399,72 +399,72 @@ After calling modify_dice(): CH09_FUN_LST_DICE = 6;5;4;3;2;1
     ARGC = 6
     ARGV = PAY_WITH;credit card;THINGS;grapes;kiwi;lemon
     ARGN = PAY_WITH;credit card;THINGS;grapes;kiwi;lemon
-[i]: Setting NO_VALUE_ARGS to NOW
-[i]: Setting ONE_VALUE_ARGS to PAY_WITH
-[i]: Setting MULTI_VALUE_ARGS to THINGS
+[i]: Setting noValueArgs to NOW
+[i]: Setting oneValueArgs to PAY_WITH
+[i]: Setting multiValueArgs to THINGS
   Going shopping later!
   Paying with: credit card
   Buying things:
     - grapes
     - kiwi
     - lemon
-[i]: Setting CH09_MAC_VAR to value
+[i]: Setting mcr_var to value
 
-[Macro | PRINT_VARIABLE(VARIABLE)]
+[Macro | PRINT_VARIABLE(variable)]
   Arguments:
     ARGC = 1
-    ARGV = CH09_MAC_VAR
+    ARGV = mcr_var
     ARGN =
-  VARIABLE: value
+  variable: value
 
-Before calling CREATE_DICE(): CH09_MAC_LST_DICE =
-[Macro | create_dice(LST_DICE)]
+Before calling CREATE_DICE(): mcr_dice =
+[Macro | create_dice(variableName)]
   Arguments:
     ARGC = 1
-    ARGV = CH09_MAC_LST_DICE
+    ARGV = mcr_dice
     ARGN =
-[i]: Setting CH09_MAC_LST_DICE to 1;2;3;4;5;6
-After calling CREATE_DICE(): CH09_MAC_LST_DICE = 1;2;3;4;5;6
+[i]: Setting mcr_dice to 1;2;3;4;5;6
+After calling CREATE_DICE(): mcr_dice = 1;2;3;4;5;6
 
-Before calling modify_dice(): CH09_MAC_LST_DICE = 1;2;3;4;5;6
+Before calling modify_dice(): mcr_dice = 1;2;3;4;5;6
 [Macro | modify_dice()]
   Arguments:
     ARGC = 0
     ARGV =
     ARGN =
-[i]: Setting CH09_MAC_LST_DICE to 6;5;4;3;2;1
-After calling MODIFY_DICE(): CH09_MAC_LST_DICE = 6;5;4;3;2;1
+[i]: Setting mcr_dice to 6;5;4;3;2;1
+After calling MODIFY_DICE(): mcr_dice = 6;5;4;3;2;1
 
-[Macro | outer_macro()]
+[Macro | OUTER_MACRO()]
   Arguments:
     ARGC = 3
     ARGV = a;b;c;1;2;3;x;y;z
     ARGN = a;b;c;1;2;3;x;y;z
   Forwarding arguments: [==[a]==] [==[b]==] [==[c]==] [==[1]==] [==[2]==] [==[3]==] [==[x]==] [==[y]==] [==[z]==]
 
-[Macro | inner_macro()]
+[Macro | INNER_MACRO()]
   Arguments:
     ARGC = 9
     ARGV = a;b;c;1;2;3;x;y;z
     ARGN = a;b;c;1;2;3;x;y;z
-[i]: Setting code_text to   message("  Hello, ${SUBJECT}!")
+[i]: Setting codeText to   message("  Hello, ${subject}!")
 
-Before calling call_set(): CH09_CALL_SET =
+Before calling callSet(): varToSet =
 [Invoke | cmake_language(CALL set)]
   Arguments:
     ARGC = 2
-    ARGV = CH09_CALL_SET;value
+    ARGV = varToSet;value
     ARGN =
-[i]: Setting CH09_CALL_SET to value
-After calling call_set(): CH09_CALL_SET = value
+[i]: Setting varToSet to value
+After calling callSet(): varToSet = value
 
-[Function | print_eval(SUBJECT)]
+[Function | printEval(subject)]
   Arguments:
     ARGC = 1
     ARGV = CMake
     ARGN =
   Evaluating code block:
-    message("  Hello, ${SUBJECT}!")
+    message("  Hello, ${subject}!")
   Hello, CMake!
 
 [Invoke | cmake_language(DEFER CALL)]

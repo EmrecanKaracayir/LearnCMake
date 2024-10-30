@@ -1,27 +1,27 @@
 # >----------< FUNCTIONS >-----------------------------------------------------------------------< #
 
-function(call_set VARIABLE_NAME VALUE)
-  message("\nBefore calling call_set(): CH09_CALL_SET = ${CH09_CALL_SET}")
+function(callSet variableName value)
+  message("\nBefore calling callSet(): varToSet = ${varToSet}")
   message("[Invoke | cmake_language(CALL set)]")
   message("  Arguments:")
   message("    ARGC = ${ARGC}")
   message("    ARGV = ${ARGV}")
   message("    ARGN = ${ARGN}")
-  cmake_language(CALL set ${VARIABLE_NAME} ${VALUE})
-  return(PROPAGATE ${VARIABLE_NAME})
+  cmake_language(CALL set ${variableName} ${value})
+  return(PROPAGATE ${variableName})
 endfunction()
 
-set(code_text [=[  message("  Hello, ${SUBJECT}!")]=])
+set(codeText [=[  message("  Hello, ${subject}!")]=])
 
-function(print_eval SUBJECT)
-  message("\n[Function | print_eval(SUBJECT)]")
+function(printEval subject)
+  message("\n[Function | printEval(subject)]")
   message("  Arguments:")
   message("    ARGC = ${ARGC}")
   message("    ARGV = ${ARGV}")
   message("    ARGN = ${ARGN}")
   message("  Evaluating code block:")
-  message("  ${code_text}")
-  cmake_language(EVAL CODE "${code_text}")
+  message("  ${codeText}")
+  cmake_language(EVAL CODE "${codeText}")
 endfunction()
 
 # >----------< CALLS >---------------------------------------------------------------------------< #
@@ -41,7 +41,7 @@ cmake_language(
     This will run as the last command in the top-level CMakeLists.txt."
 )
 
-call_set(CH09_CALL_SET "value")
-message("After calling call_set(): CH09_CALL_SET = ${CH09_CALL_SET}")
+callSet("varToSet" "value")
+message("After calling callSet(): varToSet = ${varToSet}")
 
-print_eval("CMake")
+printEval("CMake")

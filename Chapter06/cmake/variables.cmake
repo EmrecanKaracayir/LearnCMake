@@ -5,59 +5,59 @@ message("*-----------*")
 
 # Basic variable declaration
 message("\n[Basic variable declaration]")
-set(CH06_VAR_BASIC "value")
-message("  CH06_VAR_BASIC: ${CH06_VAR_BASIC}")
+set(var "value")
+message("  var: ${var}")
 
 # List variable declaration
 message("\n[List variable declaration]")
-set(CH06_VAR_LIST "value1" "value2" "value3")
-message("  CH06_VAR_LIST: ${CH06_VAR_LIST}")
+set(list "value1" "value2" "value3")
+message("  list: ${list}")
 
 # List variable declaration (alt)
 message("\n[List variable declaration (alt)]")
-set(CH06_VAR_LIST_ALT "value1;value2;value3")
-message("  CH06_VAR_LIST_ALT: ${CH06_VAR_LIST_ALT}")
+set(listAlt "value1;value2;value3")
+message("  listAlt: ${listAlt}")
 
 # Example variable usages
 message("\n[Example variable usages]")
-set(CH06_VAR_AB "ab")
-message("  CH06_VAR_AB: ${CH06_VAR_AB}")
-set(CH06_VAR_CD "cd")
-message("  CH06_VAR_CD: ${CH06_VAR_CD}")
-set(CH06_VAR_ABCD "${CH06_VAR_AB}${CH06_VAR_CD}")
-message("  CH06_VAR_ABCD: ${CH06_VAR_ABCD}")
-set(CH06_VAR_AB_CD "${CH06_VAR_AB}" "${CH06_VAR_CD}")
-message("  CH06_VAR_AB_CD: ${CH06_VAR_AB_CD}")
+set(abVar "ab")
+message("  abVar: ${abVar}")
+set(cdVar "cd")
+message("  cdVar: ${cdVar}")
+set(abcdVar "${abVar}${cdVar}")
+message("  abcdVar: ${abcdVar}")
+set(ab_cdVar "${abVar}" "${cdVar}")
+message("  ab_cdVar: ${ab_cdVar}")
 
 # Multiline variable declaration
 message("\n[Multiline variable declaration]")
-set(CH06_VAR_MULTILINE "value1\nvalue2\nvalue3")
-message("  CH06_VAR_MULTILINE: ${CH06_VAR_MULTILINE}")
+set(varMultiline "value1\nvalue2\nvalue3")
+message("  varMultiline: ${varMultiline}")
 
 # Multiline variable declaration (alt 1)
 message("\n[Multiline variable declaration (alt 1)]")
-set(CH06_VAR_MULTILINE_ALT1
+set(varMultilineAlt
 "value1
 value2
 value3"
 )
-message("  CH06_VAR_MULTILINE_ALT1: ${CH06_VAR_MULTILINE_ALT1}")
+message("  varMultilineAlt: ${varMultilineAlt}")
 
 # Multiline variable declaration (alt 2)
 message("\n[Multiline variable declaration (alt 2)]")
-set(CH06_VAR_MULTILINE_ALT2
+set(varMultilineBracket
 [[value1
 value2
 value3]]
 )
-message("  CH06_VAR_MULTILINE_ALT2: ${CH06_VAR_MULTILINE_ALT2}")
+message("  varMultilineBracket: ${varMultilineBracket}")
 
 # Unsetting a variable
 message("\n[Unsetting a variable]")
-set(CH06_VAR_UNSET "value")
-message("  CH06_VAR_UNSET: ${CH06_VAR_UNSET}")
-unset(CH06_VAR_UNSET)
-message("  CH06_VAR_UNSET: ${CH06_VAR_UNSET}")
+set(varUnset "value")
+message("  varUnset: ${varUnset}")
+unset(varUnset)
+message("  varUnset: ${varUnset}")
 
 # Environment variable declaration
 message("\n[Environment variable declaration]")

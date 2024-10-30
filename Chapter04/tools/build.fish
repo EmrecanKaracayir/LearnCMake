@@ -120,7 +120,7 @@ function print
             set_color normal
         case FAILURE
             set_color red
-            echo "[X] $argv[3]"
+            echo "[x] $argv[3]"
         case WARNING
             set_color yellow
             echo "[!] $argv[3]"

@@ -172,7 +172,7 @@ There are different types of targets and dependencies:
 ┌─📂 build
 │  └─...
 ├─📂 cmake
-│  └─📄 language.cmake
+│  └─📄 Language.cmake
 ├─📂 projects
 │  ├─📂 App
 │  │  ├─📂 source

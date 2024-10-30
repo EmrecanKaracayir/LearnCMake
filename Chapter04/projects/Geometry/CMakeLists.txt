@@ -1,6 +1,6 @@
 # >----------< PROJECT : Geometry >--------------------------------------------------------------< #
 
-project(PRJ_Geometry)
+project(PGeometry VERSION ${SChapter04_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : Geometry >---------------------------------------------------------------< #
 

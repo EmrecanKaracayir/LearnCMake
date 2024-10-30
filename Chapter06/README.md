@@ -13,7 +13,7 @@ set(varName value... [PARENT_SCOPE])
 - **Variable names:** letters, numbers, underscores (case-sensitive)
 - **Scope:** Limited to the file they're defined in (directory scope)
 - All variables are strings in CMake
-- Retrieving value: `${VAR_NAME}`
+- Retrieving value: `${varName}`
 - Undefined variables result in empty strings
 
 **Examples:**
@@ -27,9 +27,9 @@ set(bar "${foo}cd")  # bar = "abcd"
 
 ### Environment Variables
 
- - Accessed using `$ENV{varName}`
- - Set using `set(ENV{varName} "value")`
- - Changes only affect the current CMake instance
+- Accessed using `$ENV{VAR_NAME}`
+- Set using `set(ENV{VAR_NAME} "value")`
+- Changes only affect the current CMake instance
 
 **Examples:**
 
@@ -59,10 +59,10 @@ option(optVar helpString [initialValue])
 
 ### Scope Blocks (CMake 3.25+)
 
- - Created using `block()` and `endblock()`
- - Isolate variable changes
- - `PARENT_SCOPE` keyword to modify enclosing scope
- - `PROPAGATE` keyword to propagate changes back to enclosing scope
+- Created using `block()` and `endblock()`
+- Isolate variable changes
+- `PARENT_SCOPE` keyword to modify enclosing scope
+- `PROPAGATE` keyword to propagate changes back to enclosing scope
 
 **Example:**
 
@@ -141,12 +141,12 @@ math(EXPR zDec "(${x}+${y}) * 2")
 
 ### Recommended Practices
 
- 1. Use CMake GUI for easy project configuration
- 2. Provide cache variables for optional build parts
- 3. Avoid relying on environment variables
- 4. Establish a consistent variable naming convention
- 5. Avoid naming conflicts between cache and non-cache variables
- 6. Familiarize yourself with CMake's predefined variables
+1.  Use CMake GUI for easy project configuration
+2.  Provide cache variables for optional build parts
+3.  Avoid relying on environment variables
+4.  Establish a consistent variable naming convention
+5.  Avoid naming conflicts between cache and non-cache variables
+6.  Familiarize yourself with CMake's predefined variables
 
 # 🎯 Workshop
 
@@ -157,38 +157,39 @@ In this workshop, you will create a new project with a `CMakeLists.txt` file and
 1. Create a new project with a `CMakeLists.txt` file.
 2. Choose `NONE` as the project language.
 3. Create `cmake` directory with following files:
-   - `variables.cmake`
-   - `caches.cmake`
-   - `scopes.cmake`
-   - `strings.cmake`
-   - `lists.cmake`
-   - `math.cmake`
+   - `Variables.cmake`
+   - `Caches.cmake`
+   - `Scopes.cmake`
+   - `Strings.cmake`
+   - `Lists.cmake`
+   - `Math.cmake`
 4. Include the files in the `CMakeLists.txt` file.
 5. In each file, demonstrate the usage of the respective CMake features.
 6. Use `message()` to print the results.
 
-#### Example variables part output
+#### Example output - Variables
+
 ![Variables output](docs/variables-output.png)
 
-#### Example caches part output
+#### Example output - Caches
 
 ![Caches output](docs/caches-output.png)
 
 ![Caches ui output](docs/caches-ui-output.png)
 
-#### Example scopes part output
+#### Example output - Scopes
 
 ![Scopes output](docs/scopes-output.png)
 
-#### Example strings part output
+#### Example output - Strings
 
 ![Strings output](docs/strings-output.png)
 
-#### Example lists part output
+#### Example output - Lists
 
 ![Lists output](docs/lists-output.png)
 
-#### Example math part output
+#### Example output - Math
 
 ![Math output](docs/math-output.png)
 

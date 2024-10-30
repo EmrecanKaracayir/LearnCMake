@@ -10,8 +10,8 @@ CMake provides CTest for test scheduling and reporting.
 
 ```cmake
 enable_testing()
-add_executable(testSomething testSomething.cpp)
-add_test(NAME SomethingWorks COMMAND testSomething)
+add_executable(TestSomething "testSomething.cpp")
+add_test(NAME SomethingWorks COMMAND TestSomething)
 add_test(NAME ExternalTool COMMAND /path/to/tool someArg moreArg)
 ```
 

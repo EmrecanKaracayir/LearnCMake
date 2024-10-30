@@ -5,56 +5,56 @@ message("*--------*")
 
 # Directory scope
 message("\n[Directory scope]")
-set(CH06_VAR_DIRECTORY "value")
-message("  CH06_VAR_DIRECTORY: ${CH06_VAR_DIRECTORY}")
+set(varDirectory "value")
+message("  varDirectory: ${varDirectory}")
 
 # Basic scope block
 message("\n[Basic scope block]")
 
 block()
   message("  LOCAL SCOPE {")
-  set(CH06_VAR_BLOCK "value")
-  message("    CH06_VAR_BLOCK: ${CH06_VAR_BLOCK}")
+  set(varBlock "value")
+  message("    varBlock: ${varBlock}")
   message("  }")
 endblock()
 
-message("  CH06_VAR_BLOCK: ${CH06_VAR_BLOCK}")
+message("  varBlock: ${varBlock}")
 
 # Modifiying global variable inside scope block
 message("\n[Modifiying global variable inside scope block]")
-set(CH06_VAR_DIRECTORY2 "value")
-message("  CH06_VAR_DIRECTORY2: ${CH06_VAR_DIRECTORY2}")
+set(var "value")
+message("  var: ${var}")
 
 block()
   message("  LOCAL SCOPE {")
-  set(CH06_VAR_DIRECTORY2 "new value" PARENT_SCOPE)
-  message("    CH06_VAR_DIRECTORY2: ${CH06_VAR_DIRECTORY2}")
+  set(var "new value" PARENT_SCOPE)
+  message("    var: ${var}")
   message("  }")
 endblock()
 
-message("  CH06_VAR_DIRECTORY2: ${CH06_VAR_DIRECTORY2}")
+message("  var: ${var}")
 
 # Propagating variable from scope block
 message("\n[Propagating variable from scope block]")
-set(CH06_VAR_PROPAGATE "value")
-message("  CH06_VAR_PROPAGATE: ${CH06_VAR_PROPAGATE}")
+set(varPropagated "value")
+message("  varPropagated: ${varPropagated}")
 
-block(PROPAGATE CH06_VAR_PROPAGATE)
+block(PROPAGATE varPropagated)
   message("  LOCAL SCOPE {")
-  set(CH06_VAR_PROPAGATE "new value")
-  message("    CH06_VAR_PROPAGATE: ${CH06_VAR_PROPAGATE}")
+  set(varPropagated "new value")
+  message("    varPropagated: ${varPropagated}")
   message("  }")
 endblock()
 
-message("  CH06_VAR_PROPAGATE: ${CH06_VAR_PROPAGATE}")
+message("  varPropagated: ${varPropagated}")
 
 # Different scope blocks
 message("\n[Different scope blocks]")
 
 block(SCOPE_FOR VARIABLES)
   message("  LOCAL SCOPE FOR VARIABLES {")
-  set(CH06_VAR_SCOPE "value")
-  message("    CH06_VAR_SCOPE: ${CH06_VAR_SCOPE}")
+  set(varLocal "value")
+  message("    varLocal: ${varLocal}")
   message("  }")
 endblock()
 

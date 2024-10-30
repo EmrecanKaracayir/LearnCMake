@@ -1,6 +1,6 @@
-# >----------< PROJECT : Chapter05 >-------------------------------------------------------------< #
+# >----------< PROJECT : Chapter12 >-------------------------------------------------------------< #
 
-project(PRJ_Chapter12)
+project(PChapter12 VERSION ${SChapter12_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : Chapter12 >--------------------------------------------------------------< #
 
@@ -20,7 +20,7 @@ block()
   set(CMAKE_REQUIRED_DEFINITIONS "-DSOME_MACRO")
   set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-  message("\n[CheckSourceCompiles | HAS_SOME_MACRO]")
+  message("\n[CheckSourceCompiles | hasSomeMacro]")
   check_source_compiles(
     CXX
     [=[
@@ -28,7 +28,7 @@ block()
       #error "SOME_MACRO is not defined!"
     #endif
     ]=]
-    HAS_SOME_MACRO
+    hasSomeMacro
   )
 endblock()
 
@@ -37,7 +37,7 @@ block()
 
   set(CMAKE_REQUIRED_DEFINITIONS [[-DCMAKE="CMake"]])
 
-  message("\n[CheckSourceRuns | MAIN_RUNS]")
+  message("\n[CheckSourceRuns | mainRuns]")
   check_source_runs(
     CXX
     [=[
@@ -49,6 +49,6 @@ block()
       return 0;
     }
     ]=]
-    MAIN_RUNS
+    mainRuns
   )
 endblock()

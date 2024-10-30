@@ -1,6 +1,6 @@
-# >----------< PROJECT : Chapter05 >-------------------------------------------------------------< #
+# >----------< PROJECT : Chapter11 >-------------------------------------------------------------< #
 
-project(PRJ_Chapter11)
+project(PChapter11 VERSION ${SChapter11_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : Chapter11 >--------------------------------------------------------------< #
 
@@ -25,7 +25,7 @@ target_compile_definitions(
 )
 
 add_custom_target(
-  Chapter11_FileName ALL
+  FileNameGenex ALL
   COMMAND ${CMAKE_COMMAND} -E echo ""
   COMMAND ${CMAKE_COMMAND} -E echo "[Target : Chapter11]"
   COMMAND ${CMAKE_COMMAND} -E echo "  Binary name: $<TARGET_FILE_NAME:Chapter11>"
@@ -36,15 +36,15 @@ add_custom_target(
 
 # >----------< TESTING >-------------------------------------------------------------------------< #
 
-set(CH11_TEST_DIR "${SLN_Chapter11_SOURCE_DIR}/tests/Chapter11")
-set(CH11_HOST_UNIX $<PLATFORM_ID:Darwin,Linux>)
+set(testDir "${SChapter11_SOURCE_DIR}/tests/Chapter11")
+set(hostIsUnix $<PLATFORM_ID:Darwin,Linux>)
 
 add_test(
-  NAME PRJ_Chapter11_PassingTest
-  COMMAND $<IF:${CH11_HOST_UNIX},${CH11_TEST_DIR}/passing.fish,${CH11_TEST_DIR}/passing.ps1>
+  NAME PChapter11_TPassing
+  COMMAND $<IF:${hostIsUnix},${testDir}/passing.fish,${testDir}/passing.ps1>
 )
 
 add_test(
-  NAME PRJ_Chapter11_FailingTest
-  COMMAND $<IF:${CH11_HOST_UNIX},${CH11_TEST_DIR}/failing.fish,${CH11_TEST_DIR}/failing.ps1>
+  NAME PChapter11_TFailing
+  COMMAND $<IF:${hostIsUnix},${testDir}/failing.fish,${testDir}/failing.ps1>
 )

@@ -1,6 +1,6 @@
 # >----------< PROJECT : Math >------------------------------------------------------------------< #
 
-project(PRJ_Math)
+project(PMath VERSION ${SChapter05_VERSION} LANGUAGES CXX)
 
 # >----------< Target : Math >-------------------------------------------------------------------< #
 
@@ -31,25 +31,23 @@ install(TARGETS Math FILE_SET api)
 if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
-    NAME PRJ_Math_PassingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Math/passing.fish"
+    NAME PMath_TPassing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Math/passing.fish"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Math_FailingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Math/failing.fish"
+    NAME PMath_TFailing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Math/failing.fish"
   )
 else()
   # Passing test
   add_test(
-    NAME PRJ_Math_PassingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Math/passing.ps1"
+    NAME PMath_TPassing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Math/passing.ps1"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Math_FailingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Math/failing.ps1"
+    NAME PMath_TFailing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Math/failing.ps1"
   )
 endif()

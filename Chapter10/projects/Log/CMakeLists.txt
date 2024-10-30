@@ -1,6 +1,6 @@
 # >----------< PROJECT : Math >------------------------------------------------------------------< #
 
-project(PRJ_Log)
+project(PLog VERSION ${SChapter10_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : Log >--------------------------------------------------------------------< #
 
@@ -24,11 +24,11 @@ message("\n[Properties | TARGET : Log]")
 set_target_properties(
   Log
   PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${SLN_Chapter10_BINARY_DIR}/out/bin"
-    ARCHIVE_OUTPUT_DIRECTORY "${SLN_Chapter10_BINARY_DIR}/out/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${SLN_Chapter10_BINARY_DIR}/out/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${SChapter10_BINARY_DIR}/out/bin"
+    ARCHIVE_OUTPUT_DIRECTORY "${SChapter10_BINARY_DIR}/out/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${SChapter10_BINARY_DIR}/out/lib"
 )
-message("  Set output directories: ${SLN_Chapter10_BINARY_DIR}/out/{bin,lib}")
+message("  Set output directories: ${SChapter10_BINARY_DIR}/out/{bin,lib}")
 
 install(TARGETS Log FILE_SET api)
 
@@ -37,25 +37,23 @@ install(TARGETS Log FILE_SET api)
 if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
-    NAME PRJ_Log_PassingTest
-    COMMAND "${SLN_Chapter10_SOURCE_DIR}/tests/Log/passing.fish"
+    NAME PLog_TPassing
+    COMMAND "${SChapter10_SOURCE_DIR}/tests/Log/passing.fish"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Log_FailingTest
-    COMMAND "${SLN_Chapter10_SOURCE_DIR}/tests/Log/failing.fish"
+    NAME PLog_TFailing
+    COMMAND "${SChapter10_SOURCE_DIR}/tests/Log/failing.fish"
   )
 else()
   # Passing test
   add_test(
-    NAME PRJ_Log_PassingTest
-    COMMAND "${SLN_Chapter10_SOURCE_DIR}/tests/Log/passing.ps1"
+    NAME PLog_TPassing
+    COMMAND "${SChapter10_SOURCE_DIR}/tests/Log/passing.ps1"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Log_FailingTest
-    COMMAND "${SLN_Chapter10_SOURCE_DIR}/tests/Log/failing.ps1"
+    NAME PLog_TFailing
+    COMMAND "${SChapter10_SOURCE_DIR}/tests/Log/failing.ps1"
   )
 endif()

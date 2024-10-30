@@ -1,6 +1,6 @@
 # >----------< PROJECT : IO >--------------------------------------------------------------------< #
 
-project(PRJ_IO)
+project(PIO VERSION ${SChapter05_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : IO >---------------------------------------------------------------------< #
 
@@ -24,25 +24,23 @@ install(TARGETS IO FILE_SET api)
 if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
-    NAME PRJ_IO_PassingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/IO/passing.fish"
+    NAME PIO_TPassing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/IO/passing.fish"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_IO_FailingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/IO/failing.fish"
+    NAME PIO_TFailing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/IO/failing.fish"
   )
 else()
   # Passing test
   add_test(
-    NAME PRJ_IO_PassingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/IO/passing.ps1"
+    NAME PIO_TPassing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/IO/passing.ps1"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_IO_FailingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/IO/failing.ps1"
+    NAME PIO_TFailing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/IO/failing.ps1"
   )
 endif()

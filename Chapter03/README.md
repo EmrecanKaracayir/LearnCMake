@@ -32,9 +32,9 @@ add_executable(MyExe "main.cpp")
 ```cmake
 add_executable(
   MyExe
-  "main.cpp"
-  "src1.cpp"
-  "src2.cpp"
+    "main.cpp"
+    "src1.cpp"
+    "src2.cpp"
 )
 ```
 
@@ -56,9 +56,9 @@ cmake_minimum_required(VERSION major.minor[.patch[.tweak]])
 ### The `project()` command
 
 ```cmake
-project(projectName
+project(<ProjectName>
   [VERSION major[.minor[.patch[.tweak]]]]
-  [LANGUAGES languageName ...]
+  [LANGUAGES <LANGUAGE_NAME> ...]
 )
 ```
 
@@ -74,7 +74,7 @@ project(projectName
 ### Building a basic executable
 
 ```cmake
-add_executable(targetName source1 [source2 ...])
+add_executable(<TargetName> source1 [source2 ...])
 ```
 
 - Use `add_executable()` command
@@ -121,8 +121,8 @@ project(MyApp VERSION 4.7.2 LANGUAGES C)
 # Primary tool for this project
 add_executable(
   MainTool
-  "main.cpp"
-  "debug.cpp" # Optimized away for release builds
+    "main.cpp"
+    "debug.cpp" # Optimized away for release builds
 )
 
 # Helpful diagnostic tool for development and testing

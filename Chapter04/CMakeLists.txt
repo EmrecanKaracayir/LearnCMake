@@ -4,11 +4,11 @@ cmake_minimum_required(VERSION 3.30)
 
 # >----------< SOLUTION : Chapter04 >------------------------------------------------------------< #
 
-project(SLN_Chapter04 VERSION 1.0.0 LANGUAGES CXX)
+project(SChapter04 VERSION 1.0.0 LANGUAGES CXX)
 
 # >----------< INCLUDES >------------------------------------------------------------------------< #
 
-include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/language.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/Language.cmake")
 
 # >----------< PROJECTS >------------------------------------------------------------------------< #
 

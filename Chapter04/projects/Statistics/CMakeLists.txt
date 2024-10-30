@@ -1,6 +1,6 @@
 # >----------< PROJECT : Statistics >------------------------------------------------------------< #
 
-project(PRJ_Statistics)
+project(PStatistics VERSION ${SChapter04_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : Statistics >-------------------------------------------------------------< #
 

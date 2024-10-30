@@ -8,8 +8,8 @@ message("  This message will be displayed only once")
 # >----------< CONDTIONS >-----------------------------------------------------------------------< #
 
 message("\n[INCDIR | Conditions]")
-message("  PROJECT_IS_TOP_LEVEL       > ${PROJECT_IS_TOP_LEVEL}")
-message("  SLN_Chapter08_IS_TOP_LEVEL > ${SLN_Chapter08_IS_TOP_LEVEL}")
+message("  PROJECT_IS_TOP_LEVEL    > ${PROJECT_IS_TOP_LEVEL}")
+message("  SChapter08_IS_TOP_LEVEL > ${SChapter08_IS_TOP_LEVEL}")
 
 # >----------< PATHS >---------------------------------------------------------------------------< #
 
@@ -25,16 +25,16 @@ message("  CMAKE_CURRENT_LIST_FILE > ${CMAKE_CURRENT_LIST_FILE}")
 message("  CMAKE_CURRENT_LIST_LINE > ${CMAKE_CURRENT_LIST_LINE}")
 
 message("\n[INCDIR | Project paths]")
-message("  PROJECT_SOURCE_DIR       > ${PROJECT_SOURCE_DIR}")
-message("  PROJECT_BINARY_DIR       > ${PROJECT_BINARY_DIR}")
-message("  SLN_Chapter08_SOURCE_DIR > ${SLN_Chapter08_SOURCE_DIR}")
-message("  SLN_Chapter08_BINARY_DIR > ${SLN_Chapter08_BINARY_DIR}")
+message("  PROJECT_SOURCE_DIR    > ${PROJECT_SOURCE_DIR}")
+message("  PROJECT_BINARY_DIR    > ${PROJECT_BINARY_DIR}")
+message("  SChapter08_SOURCE_DIR > ${SChapter08_SOURCE_DIR}")
+message("  SChapter08_BINARY_DIR > ${SChapter08_BINARY_DIR}")
 
 # >----------< VARIABLES >-----------------------------------------------------------------------< #
 
 message("\n[INCDIR | Variables]")
-set(CH08_VAR_INCDIR "created in incdir")
-message("  [create] CH08_VAR_INCDIR < ${CH08_VAR_INCDIR}")
+set(varIncDir "created in incdir")
+message("  [create] varIncDir < ${varIncDir}")
 
 # >----------< RETURN >--------------------------------------------------------------------------< #
 

@@ -1,6 +1,6 @@
 # >----------< PROJECT : Chapter04 >-------------------------------------------------------------< #
 
-project(PRJ_Chapter04)
+project(PChapter04 VERSION ${SChapter04_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : Chapter04 >--------------------------------------------------------------< #
 

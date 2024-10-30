@@ -1,0 +1,33 @@
+function(checkSomething RESULT_VAR)
+  set(${RESULT_VAR} TRUE PARENT_SCOPE)
+endfunction()
+
+function(checkSomethingElse RESULT_VAR)
+  set(${RESULT_VAR} FALSE PARENT_SCOPE)
+endfunction()
+
+message(CHECK_START "Checking things")
+list(APPEND CMAKE_MESSAGE_INDENT "  ")
+
+message(CHECK_START "Checking support for something")
+checkSomething(checkVar1)
+if(checkVar1)
+  message(CHECK_PASS "supported")
+else()
+  message(CHECK_FAIL "not supported")
+endif()
+
+message(CHECK_START "Checking support for something else")
+checkSomethingElse(checkVar2)
+if(checkVar2)
+  message(CHECK_PASS "supported")
+else()
+  message(CHECK_FAIL "not supported")
+endif()
+
+list(POP_BACK CMAKE_MESSAGE_INDENT)
+if (checkVar1 OR checkVar2)
+  message(CHECK_PASS "ok")
+else()
+  message(CHECK_FAIL "failed")
+endif()

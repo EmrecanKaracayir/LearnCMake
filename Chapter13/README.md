@@ -140,29 +140,7 @@ In this workshop, you're required to use CMake policies to control behavior chan
 
 ### Example Output
 
-```plaintext
-[If cmake version greater | 3.0]
-  CMake version is greater than 3.0
-
-[If policy | CMP0045]
-  Policy CMP0045 is supported
-
-[Get policy | CMP0045]
-  CMP0045: NEW
-
-[Set policy | CMP0045]
-  CMP0045: OLD
-
-[Scope policy | CMP0045]
-  IN_SCOPE | CMP0045: NEW
-OUT_SCOPE | CMP0045: OLD
-
-[Push policy | CMP0045]
-  AFTER_PUSH | CMP0045: NEW
-
-[Pop policy | CMP0045]
-  AFTER_POP | CMP0045: OLD
-```
+![Example Output](docs/output.png)
 
 ### Tips
 

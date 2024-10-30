@@ -172,6 +172,14 @@ In this workshop, you will create a new project with a `CMakeLists.txt` file and
 5. Implement a `while()` loop with a condition that changes during execution.
 6. Test the project with different configurations to verify the flow control behavior.
 
+#### Example output - Conditionals
+
+![Conditionals output](docs/cond-output.png)
+
+#### Example output - Loops
+
+![Loops output](docs/loops-output.png)
+
 ### Tips
 
 - Use `message()` commands to print the results of flow control commands.

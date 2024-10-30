@@ -52,25 +52,25 @@ add_custom_target(
   VERBATIM
 )
 
-set(CH11_IF_VAR 0)
+set(ifVar 0)
 
 add_custom_target(
   genexIf0 ALL
   COMMAND ${CMAKE_COMMAND} -E echo ""
   COMMAND ${CMAKE_COMMAND} -E echo "[Genex | IF : 0]"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<IF:${CH11_IF_VAR},true,false$<ANGLE-R>"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<IF:${CH11_IF_VAR},true,false>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<IF:${ifVar},true,false$<ANGLE-R>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<IF:${ifVar},true,false>"
   VERBATIM
 )
 
-set(CH11_IF_VAR 1)
+set(ifVar 1)
 
 add_custom_target(
   genexIf1 ALL
   COMMAND ${CMAKE_COMMAND} -E echo ""
   COMMAND ${CMAKE_COMMAND} -E echo "[Genex | IF : 1]"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<IF:${CH11_IF_VAR},true,false$<ANGLE-R>"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<IF:${CH11_IF_VAR},true,false>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<IF:${ifVar},true,false$<ANGLE-R>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<IF:${ifVar},true,false>"
   VERBATIM
 )
 
@@ -137,14 +137,14 @@ add_custom_target(
   VERBATIM
 )
 
-set(CH11_LIST "A;B;C")
+set(list "A;B;C")
 
 add_custom_target(
   genexList0 ALL
   COMMAND ${CMAKE_COMMAND} -E echo ""
   COMMAND ${CMAKE_COMMAND} -E echo "[Genex | LIST : 0]"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<IN_LIST:X,${CH11_LIST}$<ANGLE-R>"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<IN_LIST:X,${CH11_LIST}>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<IN_LIST:X,${list}$<ANGLE-R>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<IN_LIST:X,${list}>"
   VERBATIM
 )
 
@@ -152,8 +152,8 @@ add_custom_target(
   genexList1 ALL
   COMMAND ${CMAKE_COMMAND} -E echo ""
   COMMAND ${CMAKE_COMMAND} -E echo "[Genex | LIST : 1]"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<IN_LIST:A,${CH11_LIST}$<ANGLE-R>"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<IN_LIST:A,${CH11_LIST}>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<IN_LIST:A,${list}$<ANGLE-R>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<IN_LIST:A,${list}>"
   VERBATIM
 )
 
@@ -161,7 +161,7 @@ add_custom_target(
   genexListAppend ALL
   COMMAND ${CMAKE_COMMAND} -E echo ""
   COMMAND ${CMAKE_COMMAND} -E echo "[Genex | LIST : APPEND]"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<LIST:APPEND,${CH11_LIST},D$<ANGLE-R>"
-  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<LIST:APPEND,${CH11_LIST},D>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Expression: $<LIST:APPEND,${list},D$<ANGLE-R>"
+  COMMAND ${CMAKE_COMMAND} -E echo "  Result: $<LIST:APPEND,${list},D>"
   VERBATIM
 )

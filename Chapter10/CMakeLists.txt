@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.30)
 
 # >----------< SOLUTION : Chapter10 >------------------------------------------------------------< #
 
-project(SLN_Chapter10 VERSION 1.0.0 LANGUAGES CXX)
+project(SChapter10 VERSION 1.0.0 LANGUAGES CXX)
 
 enable_testing()
 

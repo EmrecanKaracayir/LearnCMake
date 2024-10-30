@@ -1,6 +1,6 @@
 # >----------< PROJECT : Chapter05 >-------------------------------------------------------------< #
 
-project(PRJ_Chapter05)
+project(PChapter05 VERSION ${SChapter05_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : Chapter05 >--------------------------------------------------------------< #
 
@@ -9,15 +9,15 @@ add_executable(Chapter05)
 target_sources(
   Chapter05
   PRIVATE
-  "source/main.cpp"
+    "source/main.cpp"
 )
 
 target_link_libraries(
   Chapter05
   PRIVATE
-  Log
-  Geometry
-  Statistics
+    Log
+    Geometry
+    Statistics
 )
 
 install(TARGETS Chapter05)
@@ -27,25 +27,23 @@ install(TARGETS Chapter05)
 if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
-    NAME PRJ_Chapter05_PassingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Chapter05/passing.fish"
+    NAME PChapter05_TPassing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Chapter05/passing.fish"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Chapter05_FailingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Chapter05/failing.fish"
+    NAME PChapter05_TFailing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Chapter05/failing.fish"
   )
 else()
   # Passing test
   add_test(
-    NAME PRJ_Chapter05_PassingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Chapter05/passing.ps1"
+    NAME PChapter05_TPassing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Chapter05/passing.ps1"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Chapter05_FailingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Chapter05/failing.ps1"
+    NAME PChapter05_TFailing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Chapter05/failing.ps1"
   )
 endif()

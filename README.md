@@ -21,6 +21,7 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 11:](./Chapter11/README.md)** Generator Expressions
 - **[Chapter 12:](./Chapter12/README.md)** Modules
 - **[Chapter 13:](./Chapter13/README.md)** Policies
+- **[Chapter 14:](./Chapter14/README.md)** Debugging And Diagnostics
 
 ## ❓ How to use this repository?
 

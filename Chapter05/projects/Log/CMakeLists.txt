@@ -1,6 +1,6 @@
 # >----------< PROJECT : Math >------------------------------------------------------------------< #
 
-project(PRJ_Log)
+project(PLog VERSION ${SChapter05_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : Log >--------------------------------------------------------------------< #
 
@@ -27,25 +27,23 @@ install(TARGETS Log FILE_SET api)
 if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
-    NAME PRJ_Log_PassingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Log/passing.fish"
+    NAME PLog_TPassing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Log/passing.fish"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Log_FailingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Log/failing.fish"
+    NAME PLog_TFailing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Log/failing.fish"
   )
 else()
   # Passing test
   add_test(
-    NAME PRJ_Log_PassingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Log/passing.ps1"
+    NAME PLog_TPassing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Log/passing.ps1"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Log_FailingTest
-    COMMAND "${SLN_Chapter05_SOURCE_DIR}/tests/Log/failing.ps1"
+    NAME PLog_TFailing
+    COMMAND "${SChapter05_SOURCE_DIR}/tests/Log/failing.ps1"
   )
 endif()

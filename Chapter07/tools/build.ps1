@@ -146,7 +146,7 @@ function script:Print
     }
     "FAILURE"
     {
-      Write-Host -ForegroundColor DarkRed "[X] $local:MESSAGE"
+      Write-Host -ForegroundColor DarkRed "[x] $local:MESSAGE"
     }
     "WARNING"
     {

@@ -156,8 +156,8 @@ cmake_reset_check_state()
 3. Checking for library functions:
    ```cmake
    include(CheckSymbolExists)
-   check_symbol_exists(pthread_create "pthread.h" HAVE_PTHREAD)
-   if(HAVE_PTHREAD)
+   check_symbol_exists(pthread_create "pthread.h" hasPThread)
+   if(hasPThread)
    target_link_libraries(myapp PRIVATE pthread)
    endif()
    ```
@@ -168,16 +168,18 @@ cmake_reset_check_state()
    if(Java_FOUND)
    add_jar(myjar MyJavaClass.java)
    endif()
-  ```
-5. Managing check state for multiple checks:
-   ```cmake
-   include(CMakePushCheckState)
-   cmake_push_check_state()
-   set(CMAKE_REQUIRED_LIBRARIES OpenGL::GL)
-   check_symbol_exists(glBegin "GL/gl.h" HAVE_GL)
-   check_symbol_exists(gluLookAt "GL/glu.h" HAVE_GLU)
-   cmake_pop_check_state()
    ```
+
+````
+5. Managing check state for multiple checks:
+ ```cmake
+ include(CMakePushCheckState)
+ cmake_push_check_state()
+ set(CMAKE_REQUIRED_LIBRARIES OpenGL::GL)
+ check_symbol_exists(glBegin "GL/gl.h" HAVE_GL)
+ check_symbol_exists(gluLookAt "GL/glu.h" HAVE_GLU)
+ cmake_pop_check_state()
+````
 
 # 🎯 Workshop
 
@@ -192,15 +194,7 @@ In this workshop, you will practice working with CMake modules. You will use mod
 
 ### Example output
 
-```plaintext
-[CheckSourceCompiles | HAS_SOME_MACRO]
--- Performing Test HAS_SOME_MACRO
--- Performing Test HAS_SOME_MACRO - Success
-
-[CheckSourceRuns | MAIN_RUNS]
--- Performing Test MAIN_RUNS
--- Performing Test MAIN_RUNS - Success
-```
+![Example output](docs/output.png)
 
 ### Tips
 

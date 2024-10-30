@@ -4,13 +4,13 @@ cmake_minimum_required(VERSION 3.30)
 
 # >----------< SOLUTION : Chapter05 >------------------------------------------------------------< #
 
-project(SLN_Chapter05 VERSION 1.0.0 LANGUAGES CXX)
+project(SChapter05 VERSION 1.0.0 LANGUAGES CXX)
 
 enable_testing()
 
 # >----------< INCLUDES >------------------------------------------------------------------------< #
 
-include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/language.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/Language.cmake")
 
 # >----------< PROJECTS >------------------------------------------------------------------------< #
 

@@ -1,6 +1,6 @@
 # >----------< PROJECT : Statistics >------------------------------------------------------------< #
 
-project(PRJ_Statistics)
+project(PStatistics VERSION ${SChapter05_VERSION} LANGUAGES CXX)
 
 # >----------< TARGET : Statistics >-------------------------------------------------------------< #
 
@@ -27,24 +27,23 @@ install(TARGETS Statistics FILE_SET api)
 if(CMAKE_HOST_UNIX)
   # Passing test
   add_test(
-    NAME PRJ_Statistics_PassingTest
+    NAME PStatistics_TPassing
     COMMAND "${CMAKE_SOURCE_DIR}/tests/Statistics/passing.fish"
   )
-
   # Failing test
   add_test(
-    NAME PRJ_Statistics_FailingTest
+    NAME PStatistics_TFailing
     COMMAND "${CMAKE_SOURCE_DIR}/tests/Statistics/failing.fish"
   )
 else()
   # Passing test
   add_test(
-    NAME PRJ_Statistics_PassingTest
+    NAME PStatistics_TPassing
     COMMAND "${CMAKE_SOURCE_DIR}/tests/Statistics/passing.ps1"
   )
   # Failing test
   add_test(
-    NAME PRJ_Statistics_FailingTest
+    NAME PStatistics_TFailing
     COMMAND "${CMAKE_SOURCE_DIR}/tests/Statistics/failing.ps1"
   )
 endif()

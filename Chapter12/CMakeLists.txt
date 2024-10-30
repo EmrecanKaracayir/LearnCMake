@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.30)
 
 # >----------< SOLUTION : Chapter12 >------------------------------------------------------------< #
 
-project(SLN_Chapter12 VERSION 1.0.0 LANGUAGES CXX)
+project(SChapter12 VERSION 1.0.0 LANGUAGES CXX)
 
 # >----------< INCLUDES >------------------------------------------------------------------------< #
 
