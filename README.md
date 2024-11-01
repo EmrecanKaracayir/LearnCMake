@@ -22,6 +22,7 @@ Each chapter from the book will have a corresponding workshop as a CMake project
 - **[Chapter 12:](./Chapter12/README.md)** Modules
 - **[Chapter 13:](./Chapter13/README.md)** Policies
 - **[Chapter 14:](./Chapter14/README.md)** Debugging And Diagnostics
+- **[Chapter 15:](./Chapter15/README.md)** Build Type
 
 ## ❓ How to use this repository?
 

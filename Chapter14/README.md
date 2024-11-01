@@ -182,7 +182,7 @@ In this workshop, you're required to use logging and diagnostics features in CMa
 - Examine the custom module `FnPrint` which provides colorized output and additional features
 - Use profiling to identify slow configure stages
 
-### Example Output
+#### Example Output
 
 ![Example Output](docs/output.png)
 

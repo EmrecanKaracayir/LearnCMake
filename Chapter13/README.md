@@ -138,7 +138,7 @@ In this workshop, you're required to use CMake policies to control behavior chan
 - Check policy availability
 - Temporarily change policy behavior
 
-### Example Output
+#### Example Output
 
 ![Example Output](docs/output.png)
 

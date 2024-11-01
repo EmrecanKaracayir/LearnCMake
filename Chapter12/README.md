@@ -192,7 +192,7 @@ In this workshop, you will practice working with CMake modules. You will use mod
 - Implement recommended practices for using modules effectively
 - Use check modules to verify compiler and system features
 
-### Example output
+#### Example output
 
 ![Example output](docs/output.png)
 

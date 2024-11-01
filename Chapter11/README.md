@@ -140,7 +140,7 @@ In this workshop, you will practice working with generator expressions in CMake.
 - Practice using generator expressions for target-specific settings
 - Implement conditional logic based on build type
 
-### Example output
+#### Example output
 
 ```plaintext
 [Genex | 0]

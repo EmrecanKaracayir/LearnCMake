@@ -191,7 +191,7 @@ In this workshop, you will practice working with properties in CMake. You will d
 - Retrieve and query properties using `get_property()` and `get_target_property()`
 - Explore the use of properties in controlling compilation flags, binary locations, etc.
 
-### Example output
+#### Example output
 
 ![Example output](docs/output.png)
 
