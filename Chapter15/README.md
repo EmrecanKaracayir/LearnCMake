@@ -6,27 +6,27 @@ This is an overview of Chapter 15, which covers the build types in CMake. It int
 
 #### Standard Build Types:
 
-1. Debug
+1. `Debug`
 
    - No optimizations
    - Full debug information
    - Fast build times
    - Best for development/debugging
 
-2. Release
+2. `Release`
 
    - Full optimizations
    - No debug information
    - Best for production releases
 
-3. RelWithDebInfo
+3. `RelWithDebInfo`
 
    - Near-Release performance
    - Debug information included
    - Compromise between Debug and Release
    - Note: Assertions typically disabled
 
-4. MinSizeRel
+4. `MinSizeRel`
    - Optimized for size, not speed
    - No debug information
    - Typically for embedded systems
@@ -138,7 +138,7 @@ Here we will:
 4. Remove MinSizeRel and RelWithDebInfo build types from multi-config generators
 5. Add FastDebug to the list of configurations for multi-config generators
 6. Set FastDebug flags to be the same as RelWithDebInfo
-7. Add a \_fd postfix for FastDebug libraries
+7. Add a `_fd` postfix for FastDebug libraries
 8. Mark FastDebug as a debug configuration
 
 ```cmake

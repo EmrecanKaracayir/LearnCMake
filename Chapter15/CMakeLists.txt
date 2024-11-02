@@ -13,7 +13,7 @@ endif()
 
 project(SChapter15 VERSION 1.0.0 LANGUAGES CXX)
 
-# >----------< BUILD TYPE >----------------------------------------------------------------------< #
+# >----------< BUILD TYPES >---------------------------------------------------------------------< #
 
 if (SChapter15_IS_TOP_LEVEL)
   if (NOT isMultiConfig)

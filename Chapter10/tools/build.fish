@@ -1,24 +1,35 @@
 #!/usr/bin/env fish
 
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Info >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
+
+set scriptPath (realpath (status --current-filename))
+set scriptDir (dirname $scriptPath)
+set scriptName (basename $scriptPath)
+set scriptVersion 2.0.0
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Imports >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
+
+source "$scriptDir/fish/print.fish"
+source "$scriptDir/fish/relative.fish"
+
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Setup >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
 
 # Set the start time
-set START_TIME (date +%s)
-
-# Script constants
-set SCRIPT_DIR (dirname (realpath (status --current-filename)))
-set SCRIPT_NAME (basename (realpath (status --current-filename)))
-set SCRIPT_VERSION 1.0.0
+set startTime (date +%s)
 
 # Project constants
-set PROJECT_DIR (dirname $SCRIPT_DIR)
-set PROJECT_NAME (basename $PROJECT_DIR)
+set projectDir (dirname "$scriptDir")
+set projectName (basename "$projectDir")
+
+# CMake constants
+set sourceDir (relative "$PWD" "$projectDir")
+set buildDir (relative "$PWD" "$projectDir/build")
 
 # Execution constants
-set GENERATE 1
-set BUILD 1
-set CUSTOMIZE 0
-set FRESH 0
+set generate 1
+set build 1
+set customize 0
+set fresh 0
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Functions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
 
@@ -26,7 +37,7 @@ function arguments
     set --local options h/help v/version g/generate b/build c/customize f/fresh
 
     # Parse the script arguments
-    if not argparse --name $SCRIPT_NAME $options -- $argv
+    if not argparse --name "$scriptName" $options -- $argv
         print 0 FAILURE "Invalid option(s) provided."
         exit 1
     end
@@ -36,7 +47,7 @@ function arguments
         print 0 SUBTITLE HELP
         print 0 DEFAULT "Displays the help information for the script."
         print 0 INFORMATION "Usage:"
-        print 1 DIMMED "$SCRIPT_NAME [options]"
+        print 1 DIMMED "$scriptName [options]"
         print 0 INFORMATION "Options:"
         print 1 DIMMED "-h, --help      = Displays the help information."
         print 1 DIMMED "-v, --version   = Displays the script version."
@@ -49,105 +60,40 @@ function arguments
 
     # Handle --version
     if set --query _flag_version
-        echo "v$SCRIPT_VERSION"
+        echo "v$scriptVersion"
         exit 0
     end
 
     # Handle --generate
     if set --query _flag_generate
-        set BUILD 0
+        set build 0
     end
 
     # Handle --build
     if set --query _flag_build
-        set GENERATE 0
+        set generate 0
     end
 
     # Handle --customize
     if set --query _flag_customize
-        set CUSTOMIZE 1
+        set customize 1
     end
 
     # Handle --fresh
     if set --query _flag_fresh
-        set FRESH 1
+        set fresh 1
     end
-end
-
-function print
-    # Print tabs
-    if test $argv[1] -gt 0
-        for i in (seq 0 (math $argv[1] - 1))
-            echo -n "    "
-        end
-    end
-
-    switch $argv[2]
-        case DEFAULT
-            set_color normal
-            echo "[=] $argv[3]"
-        case DIMMED
-            set_color brblack
-            echo "[-] $argv[3]"
-        case TITLE
-            set --local TEXT "| $(string upper $argv[3]) |"
-            set --local DIVIDER "*$(string repeat --count (math (string length $TEXT) - 2) -)*"
-            echo ""
-            set_color --bold brwhite
-            echo $DIVIDER
-            echo $TEXT
-            echo $DIVIDER
-        case SUBTITLE
-            set --local TEXT (string upper $argv[3])
-            set --local DIVIDER (string repeat --count (string length $TEXT) -)
-            echo ""
-            set_color --bold brwhite
-            echo $TEXT
-            echo $DIVIDER
-        case CHEVRON
-            set_color magenta
-            echo -n "[>] "
-        case PROMPT
-            set_color yellow
-            echo -n "[<] "
-            set_color bryellow
-            echo $argv[3]
-        case SYSTEM
-            set_color magenta
-            echo -n "[>] "
-            set_color brmagenta
-            echo $argv[3]
-            set_color normal
-        case FAILURE
-            set_color red
-            echo "[x] $argv[3]"
-        case WARNING
-            set_color yellow
-            echo "[!] $argv[3]"
-        case INFORMATION
-            set_color blue
-            echo "[i] $argv[3]"
-        case LOADING
-            set_color cyan
-            echo "[~] $argv[3]"
-        case SUCCESS
-            set_color green
-            echo "[+] $argv[3]"
-    end
-
-    # Reset the color
-    set_color normal
 end
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Sections >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
 
 function main
     print 0 TITLE "BUILD SCRIPT"
-    print 0 DEFAULT "Manages the build process of the $PROJECT_NAME project."
+    print 0 DEFAULT "Manages the build process of the $projectName project."
 
     print 0 INFORMATION "Script details:"
-    print 1 DIMMED "Script name      = $SCRIPT_NAME"
-    print 1 DIMMED "Script version   = $SCRIPT_VERSION"
+    print 1 DIMMED "Script name      = $scriptName"
+    print 1 DIMMED "Script version   = $scriptVersion"
 
     print 0 INFORMATION "Shell details:"
     print 1 DIMMED "Shell name       = Fish"
@@ -165,7 +111,7 @@ function verify
     print 0 DEFAULT "Verifies the installation of necessary tools."
 
     # Flags
-    set --local SUCCESS 1
+    set --local success 1
 
     # Check for CMake
     print 0 LOADING "Checking for CMake..."
@@ -180,11 +126,11 @@ function verify
         print 1 DIMMED "Linux   > Use your distribution's package manager."
 
         # Fail the check
-        set SUCCESS 0
+        set success 0
     end
 
     # Verify flags
-    if test $SUCCESS -eq 1
+    if test $success -eq 1
         print 0 SUCCESS "All the necessary tools are installed."
     else
         print 0 FAILURE "Necessary tools are missing. Install them and try again."
@@ -197,17 +143,17 @@ function generate
     print 0 DEFAULT "Generates the build files for the project."
 
     # Handle cache
-    if test $FRESH -eq 1
+    if test $fresh -eq 1
         print 0 LOADING "Cleaning up the cache..."
-        rm -rf $PROJECT_DIR/build
+        rm -rf "$projectDir/build"
         print 0 INFORMATION "Cache cleaned up."
     end
 
     # Handle custom configurations
-    set --local EXTRA_ARGS ""
-    if test $CUSTOMIZE -eq 1
+    set --local extraArgs ""
+    if test $customize -eq 1
         print 0 PROMPT "Enter extra arguments for CMake:"
-        if read --prompt-str (print 0 CHEVRON) EXTRA_ARGS
+        if read --prompt-str (print 0 CHEVRON) extraArgs
             print 0 INFORMATION "Extra arguments set."
         else
             print 0 FAILURE "Script execution aborted."
@@ -217,12 +163,12 @@ function generate
 
     # Generate the build system
     print 0 LOADING "Generating the build system..."
-    if not test -z $EXTRA_ARGS
-        print 0 SYSTEM "cmake -S $PROJECT_DIR -B $PROJECT_DIR/build $EXTRA_ARGS"
-        eval cmake -S $PROJECT_DIR -B $PROJECT_DIR/build $EXTRA_ARGS
+    if not test -z "$extraArgs"
+        print 0 SYSTEM "cmake -S \"$sourceDir\" -B \"$buildDir\" $extraArgs"
+        eval cmake -S "$sourceDir" -B "$buildDir" $extraArgs
     else
-        print 0 SYSTEM "cmake -S $PROJECT_DIR -B $PROJECT_DIR/build"
-        cmake -S $PROJECT_DIR -B $PROJECT_DIR/build
+        print 0 SYSTEM "cmake -S \"$sourceDir\" -B \"$buildDir\""
+        cmake -S "$sourceDir" -B "$buildDir"
     end
 
     # Check if the build system generation was successful
@@ -239,13 +185,13 @@ function build
     print 0 DEFAULT "Builds the project using the generated build system."
 
     # Handle custom configurations
-    set --local EXTRA_ARGS ""
-    if test $CUSTOMIZE -eq 1
+    set --local extraArgs ""
+    if test $customize -eq 1
         # Prompt the user for extra arguments
         print 0 PROMPT "Enter extra arguments for CMake."
 
         # Read extra arguments
-        if read --prompt-str (print 0 CHEVRON) EXTRA_ARGS
+        if read --prompt-str (print 0 CHEVRON) extraArgs
             print 0 INFORMATION "Extra arguments set."
         else
             print 0 FAILURE "Script execution aborted."
@@ -255,12 +201,12 @@ function build
 
     # Build the project
     print 0 LOADING "Building the project..."
-    if not test -z $EXTRA_ARGS
-        print 0 SYSTEM "cmake --build $PROJECT_DIR/build $EXTRA_ARGS"
-        eval cmake --build $PROJECT_DIR/build $EXTRA_ARGS
+    if not test -z "$extraArgs"
+        print 0 SYSTEM "cmake --build \"$buildDir\" $extraArgs"
+        eval cmake --build "$buildDir" $extraArgs
     else
-        print 0 SYSTEM "cmake --build $PROJECT_DIR/build"
-        cmake --build $PROJECT_DIR/build
+        print 0 SYSTEM "cmake --build \"$buildDir\""
+        cmake --build "$buildDir"
     end
 
     # Check if the build was successful
@@ -277,14 +223,14 @@ function summary
     print 0 DEFAULT "Displays the summary of the script's execution."
 
     # Calculate the script execution time
-    set --local END_TIME (date +%s)
-    set --local ELAPSED_TIME (printf "%.2f" (math $END_TIME - $START_TIME))
+    set --local endTime (date +%s)
+    set --local elapsedTime (printf "%.2f" (math $endTime - $startTime))
 
     # Print the summary
     print 0 INFORMATION "Execution summary:"
-    print 1 DIMMED "Start time   = $(date -r $START_TIME +%H:%M:%S)"
-    print 1 DIMMED "End time     = $(date -r $END_TIME +%H:%M:%S)"
-    print 1 DIMMED "Elapsed time = $ELAPSED_TIME seconds."
+    print 1 DIMMED "Start time   = $(date -r $startTime +%H:%M:%S)"
+    print 1 DIMMED "End time     = $(date -r $endTime +%H:%M:%S)"
+    print 1 DIMMED "Elapsed time = $elapsedTime seconds."
 end
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Script Execution >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
@@ -295,10 +241,10 @@ arguments $argv
 # Execute sections
 main
 verify
-if test $GENERATE -eq 1
+if test $generate -eq 1
     generate
 end
-if test $BUILD -eq 1
+if test $build -eq 1
     build
 end
 summary
