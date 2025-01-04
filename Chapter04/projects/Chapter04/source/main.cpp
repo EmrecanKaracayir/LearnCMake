@@ -6,7 +6,6 @@
 
 #include <cstdlib>
 #include <format>
-#include <iostream>
 #include <vector>
 
 auto main() -> int
@@ -16,10 +15,10 @@ auto main() -> int
   Geometry::Rectangle rectangle2{3.0, 4.0};
   Geometry::Rectangle rectangle3{5.0, 6.0};
   Geometry::Rectangle rectangle4{7.0, 8.0};
-  std::cout << "    Rectangle1: " << rectangle1 << '\n';
-  std::cout << "    Rectangle2: " << rectangle2 << '\n';
-  std::cout << "    Rectangle3: " << rectangle3 << '\n';
-  std::cout << "    Rectangle4: " << rectangle4 << '\n';
+  IO::writeLine(std::format("    Rectangle1: {}", rectangle1));
+  IO::writeLine(std::format("    Rectangle2: {}", rectangle2));
+  IO::writeLine(std::format("    Rectangle3: {}", rectangle3));
+  IO::writeLine(std::format("    Rectangle4: {}", rectangle4));
   IO::writeLine("");
 
   Log::log("Calculating the areas of the rectangles...");
